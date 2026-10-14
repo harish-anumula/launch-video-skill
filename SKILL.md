@@ -1,0 +1,107 @@
+---
+name: launch-video
+description: Plan and produce a 30–75s motion-design launch video for any product, in code, with Remotion (React), an optional AI voiceover and instrumental music, beat-synced cuts, kinetic typography and UI rebuilt from the product's real screens. Use when someone asks for a launch video, product explainer, feature showreel, What's new video, animated product demo, or social cutdowns (16:9, 1:1, 9:16).
+---
+
+# Launch video
+
+You direct and build a short launch video end to end: discovery questions → storyboard → product captures → script and voiceover → music → Remotion scenes → review → render → thumbnail and cutdowns. The person brings taste and product knowledge; you bring the pipeline and the craft. Ask the questions below, make every other decision yourself, and say what you chose.
+
+Everything here is generic. Bring the product's own brand, screens, API keys and music licence.
+
+## Install (any agent)
+- **Claude Code:** copy this folder to `~/.claude/skills/launch-video/` (personal) or `<repo>/.claude/skills/launch-video/` (project).
+- **Codex:** copy it to `~/.codex/skills/launch-video/`, or reference `SKILL.md` from your `AGENTS.md`.
+- **Other agents:** put it anywhere and tell the agent to read `SKILL.md` first. Paths, versions and APIs change over time; if a command or API shape has moved on, check the current docs and adapt rather than stopping.
+
+## What is in this skill
+
+| Path | What it is |
+|---|---|
+| `references/storyboard-template.md` | Story shapes, hook types, how to use reference videos, a beat sheet and a feature-beat recipe |
+| `references/visual-catalog.md` | The visual building blocks, what each shows, and which products/features each suits |
+| `references/motion-cheatsheet.md` | Easing, springs, pacing, style families and type, transitions, camera over UI, texture, cursor |
+| `references/audio.md` | Voiceover vs music, TTS and music API shapes, mixing, loudness |
+| `references/review-checklist.md` | What to check per scene, on the full cut, and before sharing |
+| `references/gotchas.md` | Failure modes and their fixes |
+| `scripts/` | Reference analysis, voice ranking, per-line VO with word timings, take picking, music generation/QA/options/stretch, beat-snapped timing, contact sheets, finalize |
+| `template/` | Remotion starter: brand tokens, timing helpers, kinetic headline, cursor, grain, HUD, logo assembly, generic Hook/Reveal/Feature/Payoff/End/Thumbnail scenes, a library of visuals, a Catalog preview, and `video.config.tsx` (the storyboard in code) |
+
+## Tools
+- Node 20+, `ffmpeg`, Python 3.11 via `uv`/`uvx` (scripts declare their own deps).
+- Remotion: `npx create-video@latest --yes --blank --no-tailwind video`. Install the official agent skills (`npx skills add remotion-dev/skills`) and read `remotion-best-practices` before writing scenes.
+- Optional: `rubberband` (clean time-stretch), `demucs` and Whisper via `uvx` (analysis and QA), an ElevenLabs (or other TTS/music) account.
+- **Licences:** Remotion is free for individuals and companies of up to 3 people; larger companies need a Remotion company licence. Check your TTS/music provider's commercial terms. Third-party logos are trademarks; show them only for real integrations.
+
+## 1. Discovery questions (ask before planning)
+
+Ask these in one batch (use the question/multiple-choice tool if your client has one; otherwise a short numbered list). Offer a recommended default for each so the person can just confirm.
+
+1. **Product:** its name exactly as it should appear, and one sentence on what it does and for whom.
+2. **Audience and goal:** who watches (customers, prospects, investors, the internal team) and what they should do after (sign up, book a demo, try a feature).
+3. **What to show, in priority order:** the 3–6 features or moments that matter most. Screen time follows this order.
+4. **Length and format:** e.g. 45–75s main cut at 16:9; which cutdowns (15–20s, 1:1, 9:16) and where it will be posted.
+5. **Sound:** voiceover + music (recommended when the product needs explaining), or music only. Voice preference (gender, accent, energy) or "match this example".
+6. **Story and look:** the story shape and hook type (see `references/storyboard-template.md`; recommend one with a reason), light or dark, the style family (product-native, editorial, showreel, playful, cinematic; `references/motion-cheatsheet.md`), and any videos they like. Brand assets: logo (SVG), colours, fonts, or where to read them (the product's CSS).
+7. **Screens:** can you run the product with a demo account and fictional data, or will they provide screenshots? Anything that must not appear.
+8. **End card:** CTA text and URL; launch date/"now in beta" wording.
+9. **Keys:** where the TTS/music API key lives (environment variable or a git-ignored `.env`). Never ask them to paste keys into chat.
+
+If they've already answered some of these, don't ask again.
+
+## 2. Plan the storyboard
+- Choose a story shape and hook type from `references/storyboard-template.md` (problem → product → proof is only one of several). Feature beats follow the priority order.
+- If the person shares reference videos, borrow their craft (pacing, cuts, camera, type), never their lines, openings or sequences; check the script against the reference transcripts before recording.
+- Write the VO as one short line per scene (≈2.5 words/s; 60s ≈ 140 words). Each line should land on its scene's visual moment.
+- For each feature beat, pick a visual from `references/visual-catalog.md` that fits *this* product (a mobile app might be `Phone` → `Steps` → `Notifications`; a dev tool `ComposerAnswer` → `BeforeAfter` → `Device`). Vary moves between consecutive beats.
+- Share the storyboard as a short table and confirm it before building.
+
+## 3. Capture the product
+- Run the product with a demo account and **fictional data**. Never show real customers, colleagues, emails or production data.
+- Capture reference screenshots (Playwright, 2x DPR) of every screen the storyboard uses and note the exact visible copy. Rebuild those screens as simplified React components inside `Device`/`Phone`/cards so they stay crisp and animate. Real screenshots can go straight into `Device`/`Phone` when a rebuild isn't worth it.
+- If a state can't be reached honestly, stylize it and say so.
+
+## 4. Voiceover (if chosen)
+- Put the lines in `config/script.json`. `scripts/vo_lines.py` makes 3 takes per line with word timings; `scripts/vo_pick.py` picks the best by transcript match (and similarity to a reference voice, if given).
+- Generate per line, never the whole script at once: one-pass reads run lines together and you can't start each line on its cut.
+- Use stock/premade voices. To resemble a voice from an example, rank stock voices with `scripts/voice_match.py`; never clone a real person without consent.
+
+## 5. Music
+- Generate 3–4 instrumental options (`scripts/music.py`) or license tracks. Make an A/B/C/D excerpt file (`scripts/music_options.sh`) and let the person choose by ear.
+- Measure the chosen track (`scripts/music_qa.py`); generated tracks rarely follow the requested tempo or sections, so snap the cuts to the detected beats (`scripts/build_timing.py`). If the natural ending falls in the wrong place, time-stretch a few percent (`scripts/stretch_music.sh`).
+
+## 6. Build
+- Set up the template (`template/README.md`), set brand tokens, logo and CTA, and write the storyboard into `video.config.tsx`.
+- Before the VO exists, `scripts/draft_timing.py` gives animatic timing so scenes can be built; after, `build_timing.py` replaces it with real word times.
+- Build one scene at a time. After each, render 6–10 stills across it at half scale and look at them as a contact sheet (`scripts/sheet.py`).
+- Render and send the `StyleTest` composition (hook, reveal, first feature) for approval before building the rest.
+
+## 7. Review and iterate
+- Render the full cut, run `scripts/finalize.sh` (−14 LUFS, cover art, 1-fps contact sheet, transcript of the final mix) and go through `references/review-checklist.md`.
+- For each round of notes, change only what was asked, re-render, and say exactly what changed from the previous version. Commit each version.
+- You can't watch in real time: say which checks you did (stills, transcript, loudness) and ask the person to watch once before sharing.
+
+## 8. Deliver
+- Master 1920×1080, 30 fps (60 for dense UI motion), H.264 CRF 16–18, AAC 256k, −14 LUFS, −1 dBTP.
+- Thumbnail: the `Thumbnail` composition, readable at ~360px wide; it's also frame 0 of the video (many apps preview the first frame) and the MP4 cover art. Export a PNG and a 1280×720 JPG for platforms with custom thumbnails.
+- Cutdowns when asked: a 15–20s hook cut, 1:1 and 9:16 (stack type above UI), a silent website loop, SRT captions from the VO word timings.
+
+## Explainer and social videos
+
+The same pipeline makes short explainers (a blog post, paper, feature or idea) for LinkedIn and X. What changes:
+
+- **Facts come from the source, read in full.** Summaries from web-fetch tools can invent or merge numbers. Write a fact-check list from the original text before scripting.
+- **Script for anyone, not specialists.** One idea per screen, at most ~10 big words, one everyday analogy for the core concept (for example, an eval becomes "a practice test vs the real test"), no jargon or model names, at most two rounded numbers, and end with something the viewer can do. "Accurate but too technical" is the most likely first note.
+- **Pacing:** each screen's content lands within about a second (fast entrances, quick ~0.12s cuts on the beat), then holds 4–5s for reading. In the template, wrap a scene in `SpeedCtx.Provider value={1.6}` to play an authored entrance faster without retiming it.
+- **Format:** 4:5 (1080×1350) for the LinkedIn/X feed, 30–50s, music only. The on-screen text is the caption (most feed video is watched muted). Frame 0 is a finished cover.
+- **Look:** match the person's existing visual identity (their carousels, site), not the product template.
+- **Music:** for social, punchy drum-forward product-ad tracks (clear kick, snare, claps, deep bass, starting on beat one) usually beat smooth ambient ones. Generate 3 options and let the person pick by ear; same-tempo tracks can share one beat grid.
+- **Deliver with the post:** post copy, link placement, tags, alt text, cover, and a posting time based on the person's own audience analytics (where followers are, when their network is awake).
+
+## Rules
+- Fictional data only on screen; no real people unless they agreed.
+- Don't claim numbers or capabilities the product doesn't have. Confirm any "hundreds of…" or statistic is true and approved.
+- Write original copy. Don't reuse another video's hook, catchphrase or tagline, and don't default to one formula across videos.
+- Stay in the brand palette; sudden off-palette scenes read as glitches.
+- Keep music under the payoff line (gentle dip, never near-silence).
+- Use official marks for third-party logos, never approximations.

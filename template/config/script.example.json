@@ -1,0 +1,45 @@
+{
+  "voice_id": "<premade-voice-id>",
+  "model": "eleven_multilingual_v2",
+  "output_format": "mp3_44100_128",
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.8,
+    "style": 0.0,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    {
+      "id": "hook",
+      "text": "Monday, 9:02. Five apps open and nobody knows where the latest numbers are."
+    },
+    {
+      "id": "reveal",
+      "text": "Acme keeps your team's work in one place."
+    },
+    {
+      "id": "connect",
+      "text": "Bring in your docs, chats and tasks, and dozens more."
+    },
+    {
+      "id": "ask",
+      "text": "Need something? Ask, and the answer comes with its sources."
+    },
+    {
+      "id": "notify",
+      "text": "A summary every morning, without asking."
+    },
+    {
+      "id": "laptop",
+      "text": "Everything your team needs, on one live board."
+    },
+    {
+      "id": "payoff",
+      "text": "You focus. Acme keeps up."
+    },
+    {
+      "id": "end",
+      "text": "Acme. Work, simplified."
+    }
+  ]
+}

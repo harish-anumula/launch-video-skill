@@ -1,0 +1,13 @@
+{
+  "fps": 30,
+  "scenes": [
+    { "id": "hook",    "start": 0.0,  "end": 4.0,  "vo_at": 0.35 },
+    { "id": "reveal",  "start": 4.0,  "end": 9.0,  "vo_at": 4.3 },
+    { "id": "connect", "start": 9.0,  "end": 17.0, "vo_at": 9.3 },
+    { "id": "ask",     "start": 17.0, "end": 21.5, "vo_at": 17.2 },
+    { "id": "notify",  "start": 21.5, "end": 27.5, "vo_at": 21.8 },
+    { "id": "laptop",  "start": 27.5, "end": 34.5, "vo_at": 27.8 },
+    { "id": "payoff",  "start": 34.5, "end": 38.0, "vo_at": 34.8 },
+    { "id": "end",     "start": 38.0, "end": 43.5, "vo_at": 38.4 }
+  ]
+}
