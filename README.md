@@ -23,7 +23,7 @@ For a project-level skill, clone it into `<repo>/.claude/skills/launch-video/` i
 ## What it does
 
 1. Asks what the product is, who the video is for, what to show first, the format, the sound and the look.
-2. Proposes a story shape and a hook. There's no single formula: problem to proof, a cold open inside the product, one hero flow, before and after, a day with the product, idea first, or a teaser (`references/storyboard-template.md`).
+2. Proposes a story shape and a hook. There's no single formula: problem to proof, a cold open inside the product, one hero flow, before and after, a day with the product, idea first, a teaser, a first-person demo, or what we shipped this week (`references/storyboard-template.md`). For small weekly launches it has a lighter quick-demo path, and it writes the post's first line and cover before building anything.
 3. Captures the product's screens with fictional data and rebuilds them as React components, so they stay sharp and every part can animate.
 4. Records the voiceover one line at a time with word timings, and picks the best take by transcript match (`scripts/vo_lines.py`, `scripts/vo_pick.py`).
 5. Generates or measures the music and snaps every cut to the beat (`scripts/music_qa.py`, `scripts/build_timing.py`).

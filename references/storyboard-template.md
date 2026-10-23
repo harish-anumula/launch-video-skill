@@ -13,6 +13,8 @@ There is no single launch-video formula. Pick the story shape that fits the prod
 | **E. A day with it** | Morning → midday → evening moments where the product shows up → payoff | Consumer and mobile apps, habits, assistants | Needs 3+ distinct, real moments |
 | **F. Idea first (explainer)** | One idea or analogy → how the product applies it → one proof → what to try | New categories, technical features, posts about a paper or release | Stay accessible; one idea per screen |
 | **G. Teaser** | Fragments and close-ups, the name withheld until the end | Upcoming launches, brand moments | Leaves less room for features |
+| **H. First-person demo** | The maker speaks (on camera or in a first-person VO): one or two lines on who they are, what they built and why it matters to them, then "let me show you" and the product working, one beat at a time | Founders, dev and indie tools, early products, weekly demos | Frame the problem as the maker's own, not "everyone has this problem"; keep the setup under ~20% of the runtime |
+| **I. What we shipped** | A plain list of this week's changes, each shown working, often by the people who built them | Changelogs, users who already know the product, build-in-public updates | Needs real, visible changes; it can skip the hook, but every item must show on screen |
 
 ## Hook types (first 1–3 seconds)
 
@@ -21,9 +23,21 @@ There is no single launch-video formula. Pick the story shape that fits the prod
 - **Bold, true statement or number:** only real, approved numbers.
 - **Visual surprise:** an unexpected image or transformation that the rest of the video explains.
 - **Sound-led:** a sound the product makes (a notification, a click), then the picture.
-- **Direct address:** speaking to a specific viewer ("If you run payroll for a 20-person team…").
+- **Direct address:** speaking to a specific viewer ("If you run payroll for a 20-person team…"). It works well for a niche: a few thousand views from the right people beat a million from anyone.
+- **Time jump:** a short before-and-now story ("A month ago this was a sketch…") that opens a gap the viewer wants closed.
+- **Honest surprise:** a true, slightly self-deprecating admission from the maker ("I nearly didn't post this"). It turns the maker into a character people root for.
 
 Rules: the hook earns the next five seconds; don't open on a logo; vary the hook when making several videos in a row.
+
+Frame 0 and the first three seconds speak to the target viewer: show the place they work (their editor, their dashboard, their phone), zoom in when the product is small on screen so it reads at phone size, and have something move in the first second.
+
+## Write the post first
+
+Before building any scene, write the post's first line and pick frame 0. Then run the stop test: drop that line and the cover into a screenshot of the target channel's feed, next to real posts. Take the screenshot in a browser if the person allows it, or ask them for one. It passes when the person (and you) would stop on it and could say in a few words what it is. If not, change the hook now, while it is cheap.
+
+## Story beats, not just cuts
+
+Cuts keep the eye busy; beats keep people watching. A beat is a new step in the story that raises a question the next beat answers (ask for something → it works → push it further → a payoff nobody expected). Aim for a new beat every ~5–8 s. This is separate from the pacing rule below: a *visual event* (something moves or appears) comes every 1–2 s, a *story beat* (the story takes a new step) every 5–8 s. In a quick demo, a single continuous screen recording with no cuts can hold attention if the beats keep coming, and the 1–2 s rule relaxes to the motion already in the recording. At each beat, ask "would I still be watching here?" and fix the first place the answer is no.
 
 ## Using reference videos
 
@@ -53,5 +67,6 @@ Other shapes reuse the same building blocks in a different order: B starts at a 
 ## Pacing rules
 - A new visual event every 1–2s; hold key frames 2–4s; text stays ≥1.5× its reading time.
 - Hook in the first 2s.
+- The setup (who, what, why it matters) takes at most ~20% of the runtime: about 10 s of a 60 s video, 6–8 s of a 40 s one. Then get into the product.
 - Cuts land on beats of the music.
 - The end card holds ≥2–3s after the last word.

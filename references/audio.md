@@ -3,6 +3,7 @@
 ## Voiceover or music only?
 - VO + music when the product category needs a sentence of explanation, or for LinkedIn/exec audiences. Burn the words in as kinetic type anyway (feeds autoplay muted).
 - Music only suits design-led brands and well-understood products.
+- For a first-person demo, the maker's own voice usually beats a stock voice. Record it on any dedicated mic (a cheap clip-on wireless mic is fine), never a laptop or earbud mic; viewers forgive a soft picture long before bad audio.
 
 ## ElevenLabs TTS (check current docs; APIs change)
 - Endpoint with timings: `POST /v1/text-to-speech/{voice_id}/with-timestamps` → `audio_base64` + `alignment` (characters with start/end seconds). Group characters into words for animation.
