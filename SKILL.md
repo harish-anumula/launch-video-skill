@@ -38,9 +38,9 @@ Everything here is generic. Bring the product's own brand, screens, API keys and
 Ask these in one batch (use the question/multiple-choice tool if your client has one; otherwise a short numbered list). Offer a recommended default for each so the person can just confirm.
 
 1. **Product:** its name exactly as it should appear, and one sentence on what it does and for whom.
-2. **Audience and goal:** who watches (customers, prospects, investors, the internal team) and what they should do after (sign up, book a demo, try a feature).
+2. **Audience and goal:** who watches (customers, prospects, investors, the internal team) and what they should do after (sign up, book a demo, try a feature), and how that will be counted (signups, downloads, people still using it a week later; not views).
 3. **What to show, in priority order:** the 3–6 features or moments that matter most. Screen time follows this order.
-4. **Length and format:** e.g. 45–75s main cut at 16:9; which cutdowns (15–20s, 1:1, 9:16) and where it will be posted.
+4. **Size, length and format:** a polished launch (a few a year) or a quick demo (weekly; see *Quick demos*), then e.g. 45–75s main cut at 16:9; which cutdowns (15–20s, 1:1, 9:16) and where it will be posted.
 5. **Sound:** voiceover + music (recommended when the product needs explaining), or music only. Voice preference (gender, accent, energy) or "match this example".
 6. **Story and look:** the story shape and hook type (see `references/storyboard-template.md`; recommend one with a reason), light or dark, the style family (product-native, editorial, showreel, playful, cinematic; `references/motion-cheatsheet.md`), and any videos they like. Brand assets: logo (SVG), colours, fonts, or where to read them (the product's CSS).
 7. **Screens:** can you run the product with a demo account and fictional data, or will they provide screenshots? Anything that must not appear.
@@ -52,7 +52,8 @@ If they've already answered some of these, don't ask again.
 ## 2. Plan the storyboard
 - Choose a story shape and hook type from `references/storyboard-template.md` (problem → product → proof is only one of several). Feature beats follow the priority order.
 - If the person shares reference videos, borrow their craft (pacing, cuts, camera, type), never their lines, openings or sequences; check the script against the reference transcripts before recording.
-- Write the VO as one short line per scene (≈2.5 words/s; 60s ≈ 140 words). Each line should land on its scene's visual moment.
+- Write the post first: its first line and frame 0, then run the stop test (`references/storyboard-template.md`). Plan story beats, not only cuts.
+- Write the VO as one short line per scene (≈2.5 words/s; 60s ≈ 140 words). Each line should land on its scene's visual moment. Write it the way the person talks: if it would be dull as a text from a friend, it will be dull to hear.
 - For each feature beat, pick a visual from `references/visual-catalog.md` that fits *this* product (a mobile app might be `Phone` → `Steps` → `Notifications`; a dev tool `ComposerAnswer` → `BeforeAfter` → `Device`). Vary moves between consecutive beats.
 - Share the storyboard as a short table and confirm it before building.
 
@@ -80,11 +81,24 @@ If they've already answered some of these, don't ask again.
 - Render the full cut, run `scripts/finalize.sh` (−14 LUFS, cover art, 1-fps contact sheet, transcript of the final mix) and go through `references/review-checklist.md`.
 - For each round of notes, change only what was asked, re-render, and say exactly what changed from the previous version. Commit each version.
 - You can't watch in real time: say which checks you did (stills, transcript, loudness) and ask the person to watch once before sharing.
+- Makers often think a good take is bad. After two rounds of notes, recommend posting and let the audience decide; the next video learns more from this one's numbers than from another polish pass.
 
 ## 8. Deliver
 - Master 1920×1080, 30 fps (60 for dense UI motion), H.264 CRF 16–18, AAC 256k, −14 LUFS, −1 dBTP.
 - Thumbnail: the `Thumbnail` composition, readable at ~360px wide; it's also frame 0 of the video (many apps preview the first frame) and the MP4 cover art. Export a PNG and a 1280×720 JPG for platforms with custom thumbnails.
 - Cutdowns when asked: a 15–20s hook cut, 1:1 and 9:16 (stack type above UI), a silent website loop, SRT captions from the VO word timings.
+- **Channels and measurement:** give each channel its own tracked link (UTM tags or a short link) and judge the video by signups or downloads and who keeps using the product, not by views (for a product without accounts: downloads, release or package-manager installs, stars, or opt-in usage pings). Channels convert very differently: in one founder's numbers a 20k-view YouTube video converted far better than a 3M-view X post, and YouTube keeps serving a video for years. Post the same cut everywhere first, then make the next one for the channel that brings users. A video that keeps converting can become a paid ad.
+
+## Quick demos
+
+Most launches should be small and frequent: one short video for each thing shipped, not one big launch. Keep the full pipeline above for a few big moments a year.
+
+- **Defaults:** 30–60 s, in the shape of the main channel (16:9 for X and YouTube, 9:16 for Reels, TikTok and Shorts), shape H (first-person demo) or I (what we shipped) from `references/storyboard-template.md`, the maker's own voice with a quiet stock track under it, and captions burned in from the VO word timings (or a Whisper transcript of the recording).
+- **What stays from the full pipeline:** the discovery questions that aren't already answered, a three-to-six-row storyboard confirmed in one message, the post first and the stop test, the *Hook and feed* and *Before sharing* parts of `references/review-checklist.md`, and the master settings. **What goes:** rebuilt screens (§3), generated music and beat-snapping (§5; cut by ear on the stock track), the `StyleTest` round (§6) and cutdowns unless asked. Ship the same day.
+- **The screen recording** (a recorder that smooths the cursor and zooms helps) goes into `Device`. It is real footage, so the fictional-data rule matters more, not less: record in a demo account or a clean profile and check every frame for real names, emails, window titles and notifications. The maker's own numbers ("I switched windows 400 times yesterday") may appear only if they are true and the maker agrees to show them.
+- After a few weeks, compare videos per channel by what they brought in (signups, or downloads, installs and stars for a product without accounts). Repeat what worked (channel, length, shape); still write a new hook each time.
+
+These habits come from Farza Majeed's Startup School talk with Y Combinator (Oct 2026).
 
 ## Explainer and social videos
 
