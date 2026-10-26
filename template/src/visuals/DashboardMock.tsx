@@ -2,7 +2,7 @@ import React from "react";
 import { AppWindow, Mono } from "../components/App";
 import { Cursor } from "../components/Cursor";
 import { clampI } from "../lib/time";
-import { C, MONO } from "../theme";
+import { C, MONO, UI } from "../theme";
 
 /** Example rebuilt screen for <Device>: KPIs + line + bars; a filter click at `filterAt` updates every number live.
  *  Replace with a simplified rebuild of your product's real screen (keep its real copy and layout). */
@@ -24,14 +24,14 @@ export const DashboardMock: React.FC<{ t: number; at: number; filterAt: number }
   const draw = clampI(t, [at + 0.3, at + 1.2], [0, 1]);
   return (
     <AppWindow title="Dashboard" width={1320} height={800} style={{ borderRadius: 0, boxShadow: "none" }}>
-      <div style={{ padding: "22px 28px", background: "#FAFBFD", height: "100%" }}>
+      <div style={{ padding: "22px 28px", background: UI.screen, height: "100%" }}>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
           <div style={{ fontSize: 28, fontWeight: 700 }}>Overview</div>
           <div
             style={{
               marginLeft: 16,
               border: `1px solid ${f > 0.5 ? C.brand : C.line}`,
-              background: f > 0.5 ? C.brandSoft : "#fff",
+              background: f > 0.5 ? C.brandSoft : C.card,
               borderRadius: 8,
               padding: "6px 12px",
               fontSize: 15,
@@ -42,14 +42,14 @@ export const DashboardMock: React.FC<{ t: number; at: number; filterAt: number }
         </div>
         <div style={{ display: "flex", gap: 14, marginTop: 18 }}>
           {K.map(([k, a, b, fmt]) => (
-            <div key={k} style={{ flex: 1, background: "#fff", border: `1px solid ${C.line}`, borderRadius: 14, padding: "14px 18px" }}>
+            <div key={k} style={{ flex: 1, background: C.card, border: `1px solid ${C.line}`, borderRadius: 14, padding: "14px 18px" }}>
               <Mono style={{ fontSize: 13, letterSpacing: "0.06em" }}>{k}</Mono>
               <div style={{ fontSize: 34, fontWeight: 600, marginTop: 4 }}>{fmt(lerp(a, b))}</div>
             </div>
           ))}
         </div>
         <div style={{ display: "flex", gap: 14, marginTop: 14 }}>
-          <div style={{ flex: 1.4, background: "#fff", border: `1px solid ${C.line}`, borderRadius: 14, padding: 18 }}>
+          <div style={{ flex: 1.4, background: C.card, border: `1px solid ${C.line}`, borderRadius: 14, padding: 18 }}>
             <div style={{ fontSize: 17, fontWeight: 600 }}>Trend</div>
             <svg width={660} height={220} style={{ marginTop: 10 }}>
               <defs>
@@ -63,7 +63,7 @@ export const DashboardMock: React.FC<{ t: number; at: number; filterAt: number }
           <div
             style={{
               flex: 1,
-              background: "#fff",
+              background: C.card,
               border: `1px solid ${C.line}`,
               borderRadius: 14,
               padding: 18,

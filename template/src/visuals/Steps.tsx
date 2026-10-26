@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Check } from "../components/Ui";
 import { clampI, useSpringAt } from "../lib/time";
-import { C, SANS, SPRING } from "../theme";
+import { C, SANS, SPRING, onFill } from "../theme";
 
 /** A checklist that ticks itself off, one step per beat. Good for workflows, onboarding, "set up in 3 steps", agents doing work. */
 export const Steps: React.FC<{
@@ -39,13 +39,13 @@ export const Steps: React.FC<{
                 height: 34,
                 borderRadius: 17,
                 border: `2px solid ${done > 0.5 ? C.green : C.line}`,
-                background: done > 0.5 ? C.green : "#fff",
+                background: done > 0.5 ? C.green : C.card,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              {done > 0 && <Check size={20} color="#fff" p={done} />}
+              {done > 0 && <Check size={20} color={onFill(C.green)} p={done} />}
             </div>
             <div style={{ fontSize: 24, color: done > 0.5 ? C.ink : C.inkSoft }}>{s.label}</div>
           </div>

@@ -4,7 +4,7 @@ import { Headline } from "../components/Headline";
 import { LogoMark, Wordmark } from "../components/Logo";
 import { clampI, scene, useSpringAt, useT, wordAt } from "../lib/time";
 import { voLines } from "../lib/vo";
-import { C, MONO, SANS, SPRING } from "../theme";
+import { C, MONO, SANS, SPRING, alpha, onFill } from "../theme";
 import { CTA } from "./config";
 
 // End card: lockup assembles, tagline (VO words after the product name), CTA button + URL. Holds ≥2s after the last word.
@@ -16,7 +16,7 @@ export const End: React.FC<{ taglineFrom?: number }> = ({ taglineFrom = 1 }) => 
   const cta = sp(wordAt(ID, n - 1) + 0.5, SPRING.card);
   return (
     <AbsoluteFill style={{ background: C.paper, clipPath: `circle(${clampI(t, [0, 0.4], [0, 1500])}px at 50% 45%)` }}>
-      <AbsoluteFill style={{ background: `radial-gradient(70% 60% at 50% 42%, ${C.brandSoft} 0%, rgba(251,251,253,0) 70%)` }} />
+      <AbsoluteFill style={{ background: `radial-gradient(70% 60% at 50% 42%, ${C.brandSoft} 0%, ${alpha(C.paper, 0)} 70%)` }} />
       <div
         style={{
           position: "absolute",
@@ -58,7 +58,7 @@ export const End: React.FC<{ taglineFrom?: number }> = ({ taglineFrom = 1 }) => 
         <div
           style={{
             background: C.brand,
-            color: "#fff",
+            color: onFill(C.brand),
             fontFamily: SANS,
             fontWeight: 600,
             fontSize: 26,

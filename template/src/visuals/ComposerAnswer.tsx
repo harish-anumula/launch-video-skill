@@ -3,7 +3,7 @@ import { AbsoluteFill } from "remotion";
 import { Bars, Composer } from "../components/App";
 import { Card } from "../components/Ui";
 import { clampI, useSpringAt } from "../lib/time";
-import { EASE, SANS, SPRING } from "../theme";
+import { C, EASE, SANS, SPRING, UI } from "../theme";
 
 /** Type a request -> it becomes a sent bubble -> a result card rises (title, body, optional bars).
  *  Good for AI assistants, search, commands, forms: anything where the user asks and the product answers. */
@@ -49,7 +49,8 @@ export const ComposerAnswer: React.FC<{
           right: 214,
           top: 300,
           opacity: sent,
-          background: "#EEF1F6",
+          background: UI.bubble,
+          color: C.ink,
           borderRadius: 22,
           padding: "16px 24px",
           fontFamily: SANS,
@@ -75,7 +76,7 @@ export const ComposerAnswer: React.FC<{
       >
         <div style={{ width: bars ? 520 : 1400 }}>
           <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: "-0.03em" }}>{title}</div>
-          <div style={{ fontSize: 23, lineHeight: 1.5, marginTop: 18, color: "#2A2F3A" }}>{body}</div>
+          <div style={{ fontSize: 23, lineHeight: 1.5, marginTop: 18, color: UI.body }}>{body}</div>
         </div>
         {bars && (
           <div style={{ flex: 1, paddingTop: 10 }}>

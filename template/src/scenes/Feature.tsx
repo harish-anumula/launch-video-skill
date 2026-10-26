@@ -4,7 +4,7 @@ import { Grain } from "../components/Grain";
 import { Headline } from "../components/Headline";
 import { clampI, scene, useSpringAt, useT, wordAt } from "../lib/time";
 import { voLines } from "../lib/vo";
-import { BRAND_BG, C, EASE } from "../theme";
+import { BRAND_BG, C, EASE, GRAIN, SCENE_MOTION } from "../theme";
 import { toneOf } from "./config";
 
 export type Ctx = {
@@ -33,25 +33,26 @@ export const Feature: React.FC<{
   const n = s.words.length;
   const brand = toneOf(id) === "brand";
   const enter = lead > 0 ? clampI(t, [-lead, 0], [0, 1], EASE.inOut) : 1;
-  const exit = clampI(t, [dur - 0.3, dur], [0, 1], EASE.in);
+  const fade = SCENE_MOTION.exitFade;
+  const exit = fade > 0 ? clampI(t, [dur - fade, dur], [0, 1], EASE.in) : 0;
   const ctx: Ctx = { t, id, dur, vo0: s.voOffset, vo1: s.voOffset + (s.voDur || n * 0.38), w: (i) => wordAt(id, i), sp };
   return (
     <AbsoluteFill
       style={{ background: brand ? BRAND_BG : C.paper, overflow: "hidden", translate: lead ? `0px ${(1 - enter) * 1100}px` : undefined }}
     >
-      <AbsoluteFill style={{ opacity: 1 - exit, scale: String(1 + exit * 0.05) }}>
+      <AbsoluteFill style={{ opacity: 1 - exit, scale: String(1 + exit * SCENE_MOTION.exitPush) }}>
         <div style={{ position: "absolute", left: 150, top: headlineTop, zIndex: 5 }}>
           <Headline
             t={t}
             size={visual ? 96 : 112}
-            color={brand ? "#fff" : C.ink}
-            accent={brand ? "#fff" : C.brand}
+            color={brand ? C.onBrand : C.ink}
+            accent={brand ? C.onBrand : C.brand}
             lines={voLines(id, { perLine, accent: accent ?? [n - 1] })}
           />
         </div>
         {visual?.(ctx)}
       </AbsoluteFill>
-      <Grain opacity={brand ? 0.12 : 0.07} blend={brand ? "soft-light" : "multiply"} />
+      <Grain opacity={brand ? GRAIN.block : GRAIN.canvas} blend={brand ? "soft-light" : GRAIN.blend} />
     </AbsoluteFill>
   );
 };

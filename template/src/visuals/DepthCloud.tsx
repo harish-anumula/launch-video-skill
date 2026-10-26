@@ -3,7 +3,7 @@ import React from "react";
 import { Cursor } from "../components/Cursor";
 import { Card, Check, INTEGRATIONS, IntegrationIcon, Spinner, type Integration } from "../components/Ui";
 import { clampI, rand, useSpringAt } from "../lib/time";
-import { C, EASE, MONO, SANS, SPRING } from "../theme";
+import { C, EASE, MONO, SANS, SPRING, UI, alpha, onFill } from "../theme";
 
 type CloudIcon = { it: Integration; x: number; y: number; z: number; dealt: number };
 const buildCloud = (DEALT: Integration[], POOL: Integration[]): CloudIcon[] => {
@@ -85,9 +85,9 @@ export const DepthCloud: React.FC<{
               width: pr.size,
               height: pr.size,
               borderRadius: pr.size * 0.24,
-              background: "#fff",
+              background: C.card,
               border: `1px solid ${C.line}`,
-              boxShadow: `0 ${pr.size * 0.08}px ${pr.size * 0.25}px -${pr.size * 0.08}px rgba(17,19,24,${0.12 + 0.14 * pr.zz})`,
+              boxShadow: `0 ${pr.size * 0.08}px ${pr.size * 0.25}px -${pr.size * 0.08}px ${alpha(UI.shadowInk, (0.12 + 0.14 * pr.zz) * (UI.shadowInk === "#000000" ? 2.5 : 1))}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -111,10 +111,10 @@ export const DepthCloud: React.FC<{
                   alignItems: "center",
                   justifyContent: "center",
                   scale: String(badge),
-                  boxShadow: "0 0 0 3px #fff",
+                  boxShadow: `0 0 0 3px ${C.card}`,
                 }}
               >
-                <Check size={pr.size * 0.16} color="#fff" p={badge} />
+                <Check size={pr.size * 0.16} color={onFill(C.green)} p={badge} />
               </div>
             )}
           </div>
@@ -155,7 +155,7 @@ export const DepthCloud: React.FC<{
           </Card>
         );
       })}
-      <AbsoluteFill style={{ background: `rgba(251,251,253,${0.72 * dim})` }} />
+      <AbsoluteFill style={{ background: alpha(C.paper, 0.72 * dim) }} />
       {clickAt !== undefined && connecting > 0.01 && (
         <Card
           style={{
@@ -195,7 +195,7 @@ export const DepthCloud: React.FC<{
                 justifyContent: "center",
               }}
             >
-              <Check size={28} color="#fff" p={done} />
+              <Check size={28} color={onFill(C.green)} p={done} />
             </div>
           )}
         </Card>
@@ -218,7 +218,7 @@ export const DepthCloud: React.FC<{
             alignItems: "center",
             gap: 12,
             background: C.ink,
-            color: "#fff",
+            color: C.paper,
             borderRadius: 14,
             padding: "14px 22px",
             fontFamily: SANS,
@@ -237,7 +237,7 @@ export const DepthCloud: React.FC<{
               justifyContent: "center",
             }}
           >
-            <Check size={16} color="#fff" />
+            <Check size={16} color={onFill(C.green)} />
           </div>
           {successLabel}
         </div>

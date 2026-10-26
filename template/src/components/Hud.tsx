@@ -2,7 +2,7 @@ import { useCurrentFrame, useVideoConfig } from "remotion";
 import { PRODUCT } from "../brand/logo";
 import { TIMING, rand } from "../lib/time";
 import { SCENE_LABELS, toneOf } from "../scenes/config";
-import { MONO } from "../theme";
+import { C, HUD_ON, MONO } from "../theme";
 
 const GLYPHS = "abcdefghijklmnopqrstuvwxyz0123456789/—:.";
 /** Corner HUD: the scene label decodes in on each cut; product name + running timecode top-right. */
@@ -11,7 +11,7 @@ export const Hud: React.FC = () => {
   const { fps } = useVideoConfig();
   const t = f / fps;
   const cur = [...TIMING.scenes].reverse().find((s) => t >= s.start) ?? TIMING.scenes[0];
-  const color = toneOf(cur.id) === "light" ? "rgba(17,19,24,0.5)" : "rgba(255,255,255,0.72)";
+  const light = toneOf(cur.id) === "light";
   const label = SCENE_LABELS[cur.id] ?? `// ${cur.id}`;
   const since = t - cur.start;
   const shown = label
@@ -27,12 +27,13 @@ export const Hud: React.FC = () => {
     fontFamily: MONO,
     fontSize: 17,
     letterSpacing: "0.04em",
-    color,
+    color: light ? `${C.ink}80` : `${C.onBrand}B8`, // 50% and 72%
     position: "absolute" as const,
     top: 44,
     whiteSpace: "pre" as const,
     opacity: t > TIMING.duration - 0.6 ? 0 : 1,
   };
+  if (!HUD_ON) return null;
   return (
     <>
       <div style={{ ...style, left: 56 }}>{shown}</div>

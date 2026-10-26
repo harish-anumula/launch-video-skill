@@ -1,9 +1,10 @@
 import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { GRAIN } from "../theme";
 
 /** Animated film grain; re-seeded every other frame so it never reads as a static overlay. */
 export const Grain: React.FC<{ opacity?: number; blend?: "multiply" | "overlay" | "soft-light" }> = ({
-  opacity = 0.07,
-  blend = "multiply",
+  opacity = GRAIN.canvas,
+  blend = GRAIN.blend,
 }) => {
   const f = useCurrentFrame();
   const seed = Math.floor(f / 2) % 17;

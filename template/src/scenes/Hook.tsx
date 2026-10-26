@@ -5,7 +5,7 @@ import { Avatar } from "../components/App";
 import { Card } from "../components/Ui";
 import { clampI, scene, useSpringAt, useT, wordAt } from "../lib/time";
 import { voLines } from "../lib/vo";
-import { C, EASE, MONO, SPRING } from "../theme";
+import { C, EASE, MONO, SPRING, UI } from "../theme";
 
 // Hook: one example hook (a pile of busywork cards lands while the line is spoken). It's a starting point, not a formula:
 // replace it with the hook your story shape needs (references/storyboard-template.md).
@@ -23,8 +23,8 @@ const Sheet = () => (
             padding: "8px 12px",
             borderBottom: `1px solid ${C.line}`,
             borderRight: `1px solid ${C.line}`,
-            color: c === "#REF!" ? "#DC2626" : i < 3 ? C.inkSoft : C.ink,
-            background: c === "#REF!" ? "#FEE2E2" : i < 3 ? C.muted : undefined,
+            color: c === "#REF!" ? UI.danger.fg : i < 3 ? C.inkSoft : C.ink,
+            background: c === "#REF!" ? UI.danger.bg : i < 3 ? C.muted : undefined,
           }}
         >
           {c}
@@ -85,7 +85,7 @@ export const Hook: React.FC = () => {
             padding: "8px 18px",
             fontFamily: MONO,
             fontSize: 24,
-            background: "#fff",
+            background: C.card,
           }}
         >
           {KICKER}

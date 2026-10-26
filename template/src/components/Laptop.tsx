@@ -1,6 +1,8 @@
 import React from "react";
+import { C, DEVICE } from "../theme";
 
-/** Minimal laptop: dark bezel with camera, 16:10 screen, aluminium base with a finger notch, soft glare. */
+/** Minimal laptop: bezel with camera, 16:10 screen, base with a finger notch, soft glare. The finish follows the preset
+ *  (DEVICE in theme.ts): aluminium on light canvases, graphite with a lit rim on dark ones. */
 export const Laptop: React.FC<{ screenW: number; screenH: number; children: React.ReactNode; glare?: number }> = ({
   screenW,
   screenH,
@@ -15,9 +17,9 @@ export const Laptop: React.FC<{ screenW: number; screenH: number; children: Reac
           position: "relative",
           padding: bez,
           paddingTop: bez + 6,
-          background: "linear-gradient(180deg,#1A1D24,#0C0E12)",
+          background: DEVICE.bezel,
           borderRadius: "30px 30px 14px 14px",
-          boxShadow: "0 0 0 2px #2A2E37 inset, 0 60px 120px -40px rgba(17,19,24,0.55)",
+          boxShadow: `${DEVICE.rim}, 0 60px 120px -40px ${DEVICE.shadow}`,
         }}
       >
         <div
@@ -29,18 +31,18 @@ export const Laptop: React.FC<{ screenW: number; screenH: number; children: Reac
             height: 8,
             marginLeft: -4,
             borderRadius: 4,
-            background: "#2B303A",
-            boxShadow: "0 0 0 2px #15181E",
+            background: DEVICE.camera,
+            boxShadow: `0 0 0 2px ${DEVICE.cameraRing}`,
           }}
         />
-        <div style={{ position: "relative", width: screenW, height: screenH, borderRadius: 6, overflow: "hidden", background: "#fff" }}>
+        <div style={{ position: "relative", width: screenW, height: screenH, borderRadius: 6, overflow: "hidden", background: C.card }}>
           {children}
           <div
             style={{
               position: "absolute",
               inset: 0,
               pointerEvents: "none",
-              background: `linear-gradient(115deg, rgba(255,255,255,${0.16 * glare}) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 100%)`,
+              background: `linear-gradient(115deg, rgba(255,255,255,${DEVICE.glare * glare}) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 100%)`,
             }}
           />
         </div>
@@ -51,9 +53,9 @@ export const Laptop: React.FC<{ screenW: number; screenH: number; children: Reac
           width: screenW + bez * 2 + 170,
           height: 26,
           marginTop: -2,
-          background: "linear-gradient(180deg,#E4E7EC 0%,#C9CDD5 55%,#A9AEB8 100%)",
+          background: DEVICE.base,
           borderRadius: "4px 4px 22px 22px",
-          boxShadow: "0 30px 50px -20px rgba(17,19,24,0.45)",
+          boxShadow: `0 30px 50px -20px ${DEVICE.baseShadow}`,
         }}
       >
         <div
@@ -64,7 +66,7 @@ export const Laptop: React.FC<{ screenW: number; screenH: number; children: Reac
             width: 230,
             height: 9,
             marginLeft: -115,
-            background: "linear-gradient(180deg,#B7BBC4,#D3D6DC)",
+            background: DEVICE.notch,
             borderRadius: "0 0 10px 10px",
           }}
         />

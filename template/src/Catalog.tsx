@@ -4,7 +4,8 @@ import { Stamp } from "./components/App";
 import { Headline } from "./components/Headline";
 import { Card } from "./components/Ui";
 import { useT } from "./lib/time";
-import { C, MONO, SANS } from "./theme";
+import { PRESETS } from "./presets";
+import { C, MONO, SANS, alpha, mix } from "./theme";
 import { BeforeAfter } from "./visuals/BeforeAfter";
 import { ComposerAnswer } from "./visuals/ComposerAnswer";
 import { DashboardMock } from "./visuals/DashboardMock";
@@ -15,14 +16,16 @@ import { Phone } from "./visuals/Phone";
 import { StatCountUp } from "./visuals/StatCountUp";
 import { Steps } from "./visuals/Steps";
 import { IntegrationIcon, INTEGRATIONS } from "./components/Ui";
+import { SIGNATURES } from "./visuals/signatures";
 
-/** Preview every visual building block, 4s each, so you can pick moves for a new product. */
+/** Preview every visual building block (4 s each), then the eight signature scenes (one per preset, at their own length),
+ *  all in the active preset, so you can pick moves for a new product. */
 const Slot: React.FC<{ name: string; children: (t: number) => React.ReactNode }> = ({ name, children }) => {
   const t = useT();
   return (
     <AbsoluteFill style={{ background: C.paper, fontFamily: SANS, color: C.ink }}>
-      <div style={{ position: "absolute", left: 56, top: 44, fontFamily: MONO, fontSize: 18, color: C.inkSoft }}>// visuals/{name}</div>
       {children(t)}
+      <div style={{ position: "absolute", left: 56, top: 44, fontFamily: MONO, fontSize: 18, color: C.inkSoft }}>// visuals/{name}</div>
     </AbsoluteFill>
   );
 };
@@ -31,12 +34,12 @@ const Messy = () => (
     style={{
       width: "100%",
       height: "100%",
-      background: "#FEF3C7",
+      background: alpha(C.amber, 0.18),
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       fontSize: 40,
-      color: "#92400E",
+      color: mix(C.amber, C.ink, 0.55),
     }}
   >
     12 tabs, 3 spreadsheets
@@ -58,7 +61,7 @@ const Clean = () => (
     One view
   </div>
 );
-const ITEMS: [string, (t: number) => React.ReactNode][] = [
+const ITEMS: [string, (t: number) => React.ReactNode, number?][] = [
   ["DepthCloud", (t) => <DepthCloud t={t} dealAt={[0.2, 0.5, 0.8, 1.1]} cloudAt={1.6} clickAt={2.6} />],
   [
     "ComposerAnswer",
@@ -156,14 +159,19 @@ const ITEMS: [string, (t: number) => React.ReactNode][] = [
     ),
   ],
 ];
+// Signature scenes: one per preset (visuals/signatures.tsx), each in the active preset's tokens.
+for (const [id, sig] of Object.entries(SIGNATURES)) {
+  ITEMS.push([`${sig.file.replace("visuals/", "").replace(".tsx", "")} (${PRESETS[id as keyof typeof PRESETS].name})`, () => <sig.Scene dur={sig.seconds} />, sig.seconds]);
+}
 export const CATALOG_SECONDS = 4;
+const secondsOf = (item: (typeof ITEMS)[number]) => item[2] ?? CATALOG_SECONDS;
 export const Catalog: React.FC = () => (
   <Series>
-    {ITEMS.map(([name, render]) => (
-      <Series.Sequence key={name} durationInFrames={CATALOG_SECONDS * 30}>
-        <Slot name={name}>{render}</Slot>
+    {ITEMS.map((item) => (
+      <Series.Sequence key={item[0]} durationInFrames={Math.round(secondsOf(item) * 30)}>
+        <Slot name={item[0]}>{item[1]}</Slot>
       </Series.Sequence>
     ))}
   </Series>
 );
-export const CATALOG_COUNT = ITEMS.length;
+export const CATALOG_FRAMES = ITEMS.reduce((a, item) => a + Math.round(secondsOf(item) * 30), 0);

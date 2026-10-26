@@ -10,14 +10,16 @@ cp -R <skill>/template/src/. src/            # overwrites src/Root.tsx
 cd .. && mkdir -p config && for f in script timeline music; do cp <skill>/template/config/$f.example.json config/$f.json; done
 cp -R <skill>/scripts .
 python3 scripts/draft_timing.py              # animatic timing (no audio) so you can build scenes before the VO exists
-cd video && npx remotion studio              # Launch, StyleTest, Catalog, Thumbnail
+cd video && npx remotion studio              # Launch, StyleTest, Signature, Sample, Catalog, Thumbnail
 ```
 Project layout (run scripts from the project root): `config/` (script, timeline, music), `audio/`, `scripts/`, `video/` (this Remotion project).
 
 ## What to edit
 | File | Edit |
 |---|---|
-| `src/theme.ts` | Brand colours, fonts, background |
+| `src/theme.ts` | `PRESET` (the named look, see `references/style-presets.md`), then the brand colours over the preset's placeholders |
+| `src/presets.ts` | The preset token objects: colours, fonts, easing, springs, word timing, exit fade and push, pacing, grain, HUD, block style, device finish. Edit only to tune a preset or add one |
+| `src/visuals/signatures.tsx` | One signature scene per preset and the storyboard beat it takes. Swap each scene's placeholder copy for the product's |
 | `src/brand/logo.ts` | Product name, logo mark paths (split into pieces so they assemble) |
 | `src/scenes/config.ts` | HUD labels per scene, which scenes are on the brand colour, CTA |
 | `src/video.config.tsx` | **The storyboard.** One entry per scene id: a scene component and, for features, a visual from `src/visuals/` |
@@ -38,6 +40,7 @@ uvx --python 3.11 --with librosa python scripts/build_timing.py audio/music/<cho
 
 ## Render
 ```bash
+npx remotion render Sample out/sample.mp4 --codec=h264 --crf=16           # the preset's signature scene at 6 s
 npx remotion render StyleTest out/style-test.mp4 --codec=h264 --crf=16
 npx remotion render Launch out/raw.mp4 --codec=h264 --crf=16
 npx remotion still Thumbnail out/thumbnail.png && ffmpeg -i out/thumbnail.png -vf scale=1280:720 out/cover.jpg

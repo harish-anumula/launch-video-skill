@@ -1,7 +1,7 @@
 import React from "react";
 import { Notification } from "../components/App";
 import { clampI, useSpringAt } from "../lib/time";
-import { C, SHADOW, SPRING } from "../theme";
+import { C, SHADOW, SPRING, glass } from "../theme";
 
 export type Note = { at: number; icon: React.ReactNode; app: string; title: string; body: React.ReactNode };
 /** Notifications drop in from above; each new one pushes the previous down. `stackAt` shows older ones peeking behind.
@@ -29,7 +29,7 @@ export const Notifications: React.FC<{ t: number; notes: Note[]; x?: number; y?:
             top: (notes.length - 1) * 150 + 26 + k * 14,
             height: 120,
             borderRadius: 26,
-            background: "rgba(255,255,255,0.9)",
+            background: glass(0.9),
             border: `1px solid ${C.line}`,
             boxShadow: SHADOW.card,
             scale: `${1 - k * 0.05} 1`,

@@ -22,11 +22,12 @@ Everything here is generic. Bring the product's own brand, screens, API keys and
 | `references/visual-catalog.md` | The visual building blocks, what each shows, and which products/features each suits |
 | `references/motion-cheatsheet.md` | Easing, springs, pacing, style families and type, transitions, camera over UI, texture, cursor |
 | `references/audio.md` | Voiceover vs music, TTS and music API shapes, mixing, loudness |
+| `references/style-presets.md` | Eight named looks (Clean Launch, Fast Concept, Kinetic Type, Bento Product, Data Story, System Diagram, Night Signal Explainer, Paper Cut): palette, type, motion, pacing, signature moves, don'ts, fitting visuals, music, and a 6 s sample for each |
 | `references/review-loop.md` | Frame-pinned review: the review page, the feedback JSON, and how the agent turns it into one fix pass |
 | `references/review-checklist.md` | What to check per scene, on the full cut, and before sharing |
 | `references/gotchas.md` | Failure modes and their fixes |
 | `scripts/` | Reference analysis, voice ranking, per-line VO with word timings, take picking, music generation/QA/options/stretch, beat-snapped timing, contact sheets, finalize |
-| `template/` | Remotion starter: brand tokens, timing helpers, kinetic headline, cursor, grain, HUD, logo assembly, generic Hook/Reveal/Feature/Payoff/End/Thumbnail scenes, a library of visuals, a Catalog preview, and `video.config.tsx` (the storyboard in code) |
+| `template/` | Remotion starter: brand tokens, timing helpers, kinetic headline, cursor, grain, HUD, logo assembly, generic Hook/Reveal/Feature/Payoff/End/Thumbnail scenes, a library of visuals with one signature scene per preset, a Catalog preview, and `video.config.tsx` (the storyboard in code) |
 
 ## Tools
 - Node 20+, `ffmpeg`, Python 3.11 via `uv`/`uvx` (scripts declare their own deps).
@@ -43,7 +44,7 @@ Ask these in one batch (use the question/multiple-choice tool if your client has
 3. **What to show, in priority order:** the 3–6 features or moments that matter most. Screen time follows this order.
 4. **Size, length and format:** a polished launch (a few a year) or a quick demo (weekly; see *Quick demos*), then e.g. 45–75s main cut at 16:9; which cutdowns (15–20s, 1:1, 9:16) and where it will be posted.
 5. **Sound:** voiceover + music (recommended when the product needs explaining), or music only. Voice preference (gender, accent, energy) or "match this example".
-6. **Story and look:** the story shape and hook type (see `references/storyboard-template.md`; recommend one with a reason), light or dark, the style family (product-native, editorial, showreel, playful, cinematic; `references/motion-cheatsheet.md`), and any videos they like. Brand assets: logo (SVG), colours, fonts, or where to read them (the product's CSS).
+6. **Story and look:** the story shape and hook type (see `references/storyboard-template.md`; recommend one with a reason). For the look, offer the named presets in `references/style-presets.md` by name (Clean Launch, Fast Concept, Kinetic Type, Bento Product, Data Story, System Diagram, Night Signal Explainer, Paper Cut) with its *How to pick* table and a recommended one, so the person can pick a preset instead of describing a look. If none fits, ask for light or dark, the style family (product-native, editorial, showreel, playful, cinematic; `references/motion-cheatsheet.md`) and any videos they like. One preset per video, plus at most one borrowed move. Brand assets: logo (SVG), colours, fonts, or where to read them (the product's CSS).
 7. **Screens:** can you run the product with a demo account and fictional data, or will they provide screenshots? Anything that must not appear.
 8. **End card:** CTA text and URL; launch date/"now in beta" wording.
 9. **Keys:** where the TTS/music API key lives (environment variable or a git-ignored `.env`). Never ask them to paste keys into chat.
@@ -73,7 +74,8 @@ If they've already answered some of these, don't ask again.
 - Measure the chosen track (`scripts/music_qa.py`); generated tracks rarely follow the requested tempo or sections, so snap the cuts to the detected beats (`scripts/build_timing.py`). If the natural ending falls in the wrong place, time-stretch a few percent (`scripts/stretch_music.sh`).
 
 ## 6. Build
-- Set up the template (`template/README.md`), set brand tokens, logo and CTA, and write the storyboard into `video.config.tsx`.
+- Set up the template (`template/README.md`). Set `PRESET` in `src/theme.ts` to the chosen preset (`references/style-presets.md`), then swap its placeholder brand colours for the product's. Set the logo and CTA, and write the storyboard into `video.config.tsx`, pacing scenes at the preset's seconds per beat.
+- Render a 6 s sample in the chosen preset before the full build (what it shows is in each preset's *6 s sample* line) and get a yes on it.
 - Before the VO exists, `scripts/draft_timing.py` gives animatic timing so scenes can be built; after, `build_timing.py` replaces it with real word times.
 - Build one scene at a time. After each, render 6–10 stills across it at half scale and look at them as a contact sheet (`scripts/sheet.py`).
 - Render and send the `StyleTest` composition (hook, reveal, first feature) for approval before building the rest.

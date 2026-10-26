@@ -4,7 +4,7 @@ import { Headline } from "../components/Headline";
 import { LogoMark, Wordmark } from "../components/Logo";
 import { clampI, scene, useT, wordAt } from "../lib/time";
 import { voLines } from "../lib/vo";
-import { BRAND_BG, EASE, SANS } from "../theme";
+import { BRAND_BG, C, EASE, SANS } from "../theme";
 
 // Reveal: brand field whips in, optional lead words rise, the mark assembles, the name wipes in, the tagline is spoken.
 // Set LEAD_TEXT to the words spoken before the product name (for example "Introducing"), or leave "" to go straight to the name.
@@ -38,7 +38,7 @@ export const Reveal: React.FC = () => {
               textAlign: "center",
               fontFamily: SANS,
               fontWeight: 600,
-              color: "#fff",
+              color: C.onBrand,
               letterSpacing: "-0.04em",
               top: 380 - leadUp * 160,
               fontSize: 170 - leadUp * 118,
@@ -60,15 +60,15 @@ export const Reveal: React.FC = () => {
               gap: 34,
             }}
           >
-            <LogoMark size={LOCKUP.markH} color="#fff" p={clampI(t, [nameAt - 0.05, nameAt + 1.0], [0, 1], (x) => x)} />
-            <Wordmark height={LOCKUP.markH} color="#fff" p={clampI(t, [nameAt + 0.15, nameAt + 0.9], [0, 1], (x) => x)} />
+            <LogoMark size={LOCKUP.markH} color={C.onBrand} p={clampI(t, [nameAt - 0.05, nameAt + 1.0], [0, 1], (x) => x)} />
+            <Wordmark height={LOCKUP.markH} color={C.onBrand} p={clampI(t, [nameAt + 0.15, nameAt + 0.9], [0, 1], (x) => x)} />
           </div>
           <div style={{ position: "absolute", left: 0, right: 0, top: 640 }}>
             <Headline
               t={t}
               size={62}
-              color="#fff"
-              accent="#fff"
+              color={C.onBrand}
+              accent={C.onBrand}
               align="center"
               weight={500}
               lines={[voLines(ID, { from: TAGLINE_FROM, perLine: 99, accent: [n - 2, n - 1] }).flat()]}

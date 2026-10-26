@@ -1,6 +1,6 @@
 import React from "react";
 import { clampI } from "../lib/time";
-import { C, EASE, MONO, SANS, SERIF, SHADOW } from "../theme";
+import { C, EASE, MONO, SANS, SERIF, SHADOW, UI, glass, onFill } from "../theme";
 
 /** App window chrome (title bar in the brand colour). Rebuild your product's real screens inside it. */
 export const AppWindow: React.FC<{
@@ -16,8 +16,8 @@ export const AppWindow: React.FC<{
       height,
       borderRadius: 18,
       overflow: "hidden",
-      background: "#fff",
-      boxShadow: "0 40px 120px -30px rgba(17,19,24,0.35), 0 0 0 1px rgba(17,19,24,0.06)",
+      background: C.card,
+      boxShadow: UI.windowShadow,
       fontFamily: SANS,
       color: C.ink,
       display: "flex",
@@ -25,11 +25,11 @@ export const AppWindow: React.FC<{
       ...style,
     }}
   >
-    <div style={{ height: 44, background: C.brand, display: "flex", alignItems: "center", padding: "0 18px", gap: 9, flexShrink: 0 }}>
+    <div style={{ height: 44, background: UI.titleBar, display: "flex", alignItems: "center", padding: "0 18px", gap: 9, flexShrink: 0 }}>
       {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
         <div key={c} style={{ width: 13, height: 13, borderRadius: 7, background: c }} />
       ))}
-      <div style={{ color: "#fff", fontSize: 15, fontWeight: 500, marginLeft: 14 }}>{title}</div>
+      <div style={{ color: UI.onTitleBar, fontSize: 15, fontWeight: 500, marginLeft: 14 }}>{title}</div>
     </div>
     <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>{children}</div>
   </div>
@@ -48,7 +48,7 @@ export const Composer: React.FC<{ text: string; typed: number; t: number; width?
     <div
       style={{
         width,
-        background: "#fff",
+        background: C.card,
         borderRadius: 22,
         border: `1px solid ${C.line}`,
         boxShadow: SHADOW.float,
@@ -56,7 +56,7 @@ export const Composer: React.FC<{ text: string; typed: number; t: number; width?
         fontFamily: SANS,
       }}
     >
-      <div style={{ fontSize: 28, minHeight: 40, color: shown ? C.ink : "#9AA1AE" }}>
+      <div style={{ fontSize: 28, minHeight: 40, color: shown ? C.ink : UI.placeholder }}>
         {shown || placeholder}
         {shown && (
           <span
@@ -86,7 +86,7 @@ export const Composer: React.FC<{ text: string; typed: number; t: number; width?
           }}
         >
           <svg width="22" height="22" viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7" stroke="#fff" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 19V5M5 12l7-7 7 7" stroke={onFill(C.brand)} strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
@@ -157,7 +157,7 @@ export const Stamp: React.FC<{ t: number; at: number; text: string; color?: stri
         fontFamily: SERIF,
         fontSize: size,
         lineHeight: 1.05,
-        background: "rgba(255,255,255,0.85)",
+        background: glass(0.85),
       }}
     >
       {text}
@@ -211,9 +211,9 @@ export const Notification: React.FC<{
       alignItems: "center",
       padding: "18px 22px",
       borderRadius: 26,
-      background: "rgba(255,255,255,0.94)",
+      background: glass(0.94),
       border: `1px solid ${C.line}`,
-      boxShadow: "0 18px 50px -18px rgba(17,19,24,0.35)",
+      boxShadow: UI.bannerShadow,
       fontFamily: SANS,
     }}
   >
@@ -222,7 +222,7 @@ export const Notification: React.FC<{
         width: 58,
         height: 58,
         borderRadius: 14,
-        background: "#fff",
+        background: C.card,
         border: `1px solid ${C.line}`,
         display: "flex",
         alignItems: "center",
@@ -247,7 +247,7 @@ export const Notification: React.FC<{
         <span>{when}</span>
       </div>
       <div style={{ fontSize: 21, fontWeight: 600, marginTop: 3 }}>{title}</div>
-      <div style={{ fontSize: 18, color: "#2A2F3A", marginTop: 2, lineHeight: 1.35 }}>{body}</div>
+      <div style={{ fontSize: 18, color: UI.body, marginTop: 2, lineHeight: 1.35 }}>{body}</div>
     </div>
   </div>
 );

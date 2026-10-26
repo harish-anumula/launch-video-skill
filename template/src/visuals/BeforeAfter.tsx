@@ -1,6 +1,6 @@
 import React from "react";
 import { clampI } from "../lib/time";
-import { C, EASE, MONO } from "../theme";
+import { C, EASE, MONO, UI } from "../theme";
 
 /** Two states in one frame; a vertical wipe reveals "after" over "before" at `at`. Good for cleanups, automation, redesigns,
  *  "from 40 tabs to one view". Pass any two nodes of the same size. */
@@ -26,7 +26,7 @@ export const BeforeAfter: React.FC<{
         fontSize: 15,
         letterSpacing: "0.08em",
         color: C.inkSoft,
-        background: "#fff",
+        background: C.card,
         padding: "4px 10px",
         borderRadius: 6,
         opacity: show,
@@ -45,7 +45,7 @@ export const BeforeAfter: React.FC<{
         height: h,
         borderRadius: 22,
         overflow: "hidden",
-        boxShadow: "0 30px 80px -30px rgba(17,19,24,0.35)",
+        boxShadow: `0 30px 80px -30px ${UI.dropShadow}`,
       }}
     >
       <div style={{ position: "absolute", inset: 0 }}>

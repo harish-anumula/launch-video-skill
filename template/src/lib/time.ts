@@ -1,7 +1,7 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig, EasingFunction } from "remotion";
 import timing from "../data/timing.json";
-import { EASE } from "../theme";
+import { EASE, TEXT } from "../theme";
 
 export type Word = { w: string; s: number; e: number };
 export type SceneTiming = { id: string; start: number; end: number; voOffset: number; voDur: number; vo: string | null; words: Word[] };
@@ -14,7 +14,7 @@ export const scene = (id: string) => {
 /** Scene-relative time (s) when the i-th spoken word starts (or ends). */
 export const wordAt = (id: string, i: number, edge: "s" | "e" = "s") => {
   const s = scene(id);
-  if (!s.words.length) return s.voOffset + i * 0.38;
+  if (!s.words.length) return s.voOffset + i * TEXT.wordGap;
   return s.voOffset + s.words[Math.min(i, s.words.length - 1)][edge];
 };
 /** Seconds since this Sequence started, minus an optional lead-in (negative during a transition-in). */

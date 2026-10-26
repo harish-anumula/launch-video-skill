@@ -1,5 +1,5 @@
 import { clampI } from "../lib/time";
-import { EASE } from "../theme";
+import { C, EASE, alpha } from "../theme";
 
 export type CursorKey = { t: number; x: number; y: number };
 
@@ -49,7 +49,7 @@ export const Cursor: React.FC<{ t: number; keys: CursorKey[]; clicks?: number[];
             width: 60 * scale,
             height: 60 * scale,
             borderRadius: "50%",
-            border: `3px solid rgba(79,70,229,${0.6 * (1 - ripple)})`,
+            border: `3px solid ${alpha(C.brand, 0.6 * (1 - ripple))}`,
             scale: String(0.3 + ripple * 1.2),
           }}
         />

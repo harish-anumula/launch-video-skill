@@ -7,12 +7,13 @@ import { Feature } from "./scenes/Feature";
 import { Hook } from "./scenes/Hook";
 import { Payoff, PAYOFF_LEAD } from "./scenes/Payoff";
 import { Reveal, REVEAL_LEAD } from "./scenes/Reveal";
-import { C, MONO } from "./theme";
+import { C, MONO, PRESET } from "./theme";
 import { ComposerAnswer } from "./visuals/ComposerAnswer";
 import { DashboardMock } from "./visuals/DashboardMock";
 import { DepthCloud } from "./visuals/DepthCloud";
 import { Device } from "./visuals/Device";
 import { Notifications } from "./visuals/Notifications";
+import { SIGNATURES } from "./visuals/signatures";
 
 export type SceneDef = { C: React.FC; lead?: number };
 
@@ -121,3 +122,8 @@ export const SCENES: Record<string, SceneDef> = {
   payoff: { C: () => <Payoff />, lead: PAYOFF_LEAD },
   end: { C: () => <End /> },
 };
+
+// The active preset's signature scene takes one beat (visuals/signatures.tsx), so a render in any preset shows its own move.
+// Clean Launch keeps the storyboard above as is: its signature is the Feature beat itself. Delete these lines to opt out.
+const SIG = SIGNATURES[PRESET].beat;
+if (SIG && SCENES[SIG.id]) SCENES[SIG.id] = { C: SIG.C, lead: SIG.lead };

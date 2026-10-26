@@ -18,6 +18,7 @@
 
 ## Kinetic type
 - Word reveal: each word in an `overflow:hidden` wrapper; inner span translates from 105% to 0, blur 10px → 0, over ~0.55s, triggered at the word's VO start time.
+- For a complete named look (palette, type, springs, pacing and signature moves together), pick one from `references/style-presets.md` and set `PRESET` in `src/theme.ts`.
 - Start from the product's own typeface and colours. Then pick one style family and stay in it:
   - **Product-native:** the product's UI font and palette throughout; feels like the app itself.
   - **Editorial:** a grotesk sans (e.g. Geist, Inter Display) with an italic serif (e.g. Instrument Serif) for one accent word; optional hand-drawn underline drawn with `strokeDashoffset`.

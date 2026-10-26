@@ -1,7 +1,7 @@
 import React from "react";
 import { Img, staticFile } from "remotion";
 import { clampI, useSpringAt } from "../lib/time";
-import { EASE, SPRING } from "../theme";
+import { C, DEVICE, EASE, SPRING } from "../theme";
 
 /** A phone rises and turns slightly toward camera. Put a rebuilt 390x844 screen (children) or a real screenshot (`image`) in it.
  *  Good for mobile apps, notifications on the go, checkout/pay flows. */
@@ -32,12 +32,12 @@ export const Phone: React.FC<{
             height: 844 + 28,
             padding: 14,
             borderRadius: 64,
-            background: "linear-gradient(180deg,#1A1D24,#0C0E12)",
-            boxShadow: "0 0 0 2px #2A2E37 inset, 0 60px 120px -40px rgba(17,19,24,0.55)",
+            background: DEVICE.bezel,
+            boxShadow: `${DEVICE.rim}, 0 60px 120px -40px ${DEVICE.shadow}`,
             position: "relative",
           }}
         >
-          <div style={{ width: 390, height: 844, borderRadius: 50, overflow: "hidden", background: "#fff", position: "relative" }}>
+          <div style={{ width: 390, height: 844, borderRadius: 50, overflow: "hidden", background: C.card, position: "relative" }}>
             {image ? <Img src={staticFile(image)} style={{ width: 390, height: 844, objectFit: "cover", maxWidth: "none" }} /> : children}
             <div
               style={{
@@ -48,7 +48,7 @@ export const Phone: React.FC<{
                 height: 34,
                 marginLeft: -60,
                 borderRadius: 20,
-                background: "#0C0E12",
+                background: DEVICE.island,
               }}
             />
           </div>
