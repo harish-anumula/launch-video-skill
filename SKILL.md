@@ -22,6 +22,7 @@ Everything here is generic. Bring the product's own brand, screens, API keys and
 | `references/visual-catalog.md` | The visual building blocks, what each shows, and which products/features each suits |
 | `references/motion-cheatsheet.md` | Easing, springs, pacing, style families and type, transitions, camera over UI, texture, cursor |
 | `references/audio.md` | Voiceover vs music, TTS and music API shapes, mixing, loudness |
+| `references/review-loop.md` | Frame-pinned review: the review page, the feedback JSON, and how the agent turns it into one fix pass |
 | `references/review-checklist.md` | What to check per scene, on the full cut, and before sharing |
 | `references/gotchas.md` | Failure modes and their fixes |
 | `scripts/` | Reference analysis, voice ranking, per-line VO with word timings, take picking, music generation/QA/options/stretch, beat-snapped timing, contact sheets, finalize |
@@ -79,7 +80,8 @@ If they've already answered some of these, don't ask again.
 
 ## 7. Review and iterate
 - Render the full cut, run `scripts/finalize.sh` (−14 LUFS, cover art, 1-fps contact sheet, transcript of the final mix) and go through `references/review-checklist.md`.
-- For each round of notes, change only what was asked, re-render, and say exactly what changed from the previous version. Commit each version.
+- **Collect notes with the review page** (`references/review-loop.md`). The person opens `scripts/review/review.html`, clicks the frame that's wrong or drags across a range, and types the note. "Finish review" exports a JSON file. Run `scripts/review_frames.py` on it to get every note with its time, frame and a pinned frame image. Optionally do a storyboard round first, with one still per shot.
+- For each round of notes, change only what was asked, re-render, and say exactly what changed per note number. Commit each version.
 - You can't watch in real time: say which checks you did (stills, transcript, loudness) and ask the person to watch once before sharing.
 - Makers often think a good take is bad. After two rounds of notes, recommend posting and let the audience decide; the next video learns more from this one's numbers than from another polish pass.
 

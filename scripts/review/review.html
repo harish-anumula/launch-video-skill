@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video Review</title>
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--line:#e2e5ea;--t:#15181e;--m:#5e6673;--acc:#2f5bff;--pin:#ff3b5c;--soft:#eef2ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f14;--panel:#161a22;--line:#2a3040;--t:#f2f4f8;--m:#a7b0be;--acc:#8ea0ff;--soft:#1c2233}}
+:root[data-theme="dark"]{--bg:#0d0f14;--panel:#161a22;--line:#2a3040;--t:#f2f4f8;--m:#a7b0be;--acc:#8ea0ff;--soft:#1c2233}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:15px/1.45 -apple-system,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:18px 16px 40px}
+header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:18px;margin:0 8px 0 0}input[type=text],input[type=number]{background:var(--panel);color:var(--t);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+button{background:var(--panel);color:var(--t);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}
+button.p{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.stage{position:relative;background:#000;border-radius:10px;overflow:hidden;cursor:crosshair}
+video{display:block;width:100%;max-height:72vh;object-fit:contain}
+.pin{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border:3px solid var(--pin);border-radius:50%;box-shadow:0 0 0 2px #fff;pointer-events:none}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:40px;text-align:center;color:var(--m)}
+.bar{position:relative;height:34px;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;cursor:pointer;user-select:none}
+.bar .ph{position:absolute;top:0;bottom:0;width:2px;background:var(--acc)}
+.bar .mk{position:absolute;top:6px;width:6px;height:20px;margin-left:-3px;border-radius:3px;background:var(--pin)}
+.bar .rg{position:absolute;top:10px;height:12px;background:color-mix(in srgb,var(--pin) 45%,transparent);border-radius:4px}
+.bar .sel{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--acc) 25%,transparent)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.tc{font-variant-numeric:tabular-nums;color:var(--m)}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;max-height:84vh;overflow:auto}
+.note{border:1px solid var(--line);border-radius:8px;padding:8px;margin:8px 0}
+.note .h{display:flex;justify-content:space-between;gap:6px;font-size:13px;color:var(--m)}
+.note textarea,#draft{width:100%;min-height:54px;background:var(--bg);color:var(--t);border:1px solid var(--line);border-radius:6px;padding:7px;font:inherit;margin-top:6px}
+.hint{color:var(--m);font-size:13px}
+a.lnk{color:var(--acc);cursor:pointer}
+</style></head><body><div class="wrap">
+<header>
+  <h1>Video review</h1>
+  <label class="hint">Round <input type="text" id="round" value="v1" size="5"></label>
+  <label class="hint">FPS <input type="number" id="fps" value="30" style="width:64px"></label>
+  <button id="open">Open video…</button><input type="file" id="file" accept="video/*" hidden>
+  <button id="theme" title="Toggle theme">Theme</button>
+</header>
+<div class="grid">
+  <div>
+    <div id="dropzone" class="drop">Drop an mp4 here, use “Open video…”, or open this page with <code>?src=path/to/video.mp4</code></div>
+    <div class="stage" id="stage" hidden><video id="v" playsinline></video><div id="pins"></div></div>
+    <div class="bar" id="bar" hidden><div class="sel" id="sel" hidden></div><div class="ph" id="ph"></div></div>
+    <div class="row" id="ctrl" hidden>
+      <button id="play">Play</button><button id="back">◀ 1 frame</button><button id="fwd">1 frame ▶</button>
+      <span class="tc" id="tc">0.00 s · f0</span>
+      <span class="hint">Click the picture to pin a spot. Drag on the bar to mark a range. Space plays or pauses; , and . step frames; N adds a note here.</span>
+    </div>
+    <div class="row" id="addrow" hidden>
+      <textarea id="draft" placeholder="Note for this moment (or the pinned spot / marked range)…"></textarea>
+      <button class="p" id="add">Add note</button><button id="clear">Clear pin/range</button>
+    </div>
+  </div>
+  <div class="side">
+    <div class="row" style="margin-top:0"><b id="count">0 notes</b><span style="flex:1"></span><button class="p" id="finish">Finish review</button></div>
+    <p class="hint" id="status">“Finish review” copies the notes as JSON and downloads review-&lt;round&gt;.json. Hand it to the agent with the video; it runs <code>scripts/review_frames.py</code> to grab each frame with your pin drawn on it.</p>
+    <div id="list"></div>
+  </div>
+</div></div>
+<script>
+const $=id=>document.getElementById(id), v=$('v');
+let name='', notes=[], pin=null, range=null, dragging=null;
+const fps=()=>Math.max(1,+$('fps').value||30), fmt=t=>t.toFixed(2)+' s · f'+Math.round(t*fps());
+const key=()=>'review:'+name+':'+$('round').value;
+function save(){try{localStorage.setItem(key(),JSON.stringify(notes))}catch(e){}}
+function load(){try{notes=JSON.parse(localStorage.getItem(key())||'[]')}catch(e){notes=[]}render()}
+function setSrc(src,n){name=n||src.split('/').pop();v.src=src;$('dropzone').hidden=true;['stage','bar','ctrl','addrow'].forEach(i=>$(i).hidden=false);load()}
+const q=new URLSearchParams(location.search);if(q.get('src'))setSrc(q.get('src'));if(q.get('round'))$('round').value=q.get('round');if(q.get('fps'))$('fps').value=q.get('fps');
+$('open').onclick=()=>$('file').click();$('file').onchange=e=>{const f=e.target.files[0];if(f)setSrc(URL.createObjectURL(f),f.name)};
+document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f)setSrc(URL.createObjectURL(f),f.name)});
+$('round').onchange=load;
+$('play').onclick=()=>v.paused?v.play():v.pause();v.onplay=()=>$('play').textContent='Pause';v.onpause=()=>$('play').textContent='Play';
+const step=d=>{v.pause();v.currentTime=Math.max(0,Math.min(v.duration||0,v.currentTime+d/fps()))};$('back').onclick=()=>step(-1);$('fwd').onclick=()=>step(1);
+v.ontimeupdate=()=>{$('tc').textContent=fmt(v.currentTime);if(v.duration)$('ph').style.left=(100*v.currentTime/v.duration)+'%'};
+v.onloadedmetadata=()=>render();
+// pin on picture
+$('stage').addEventListener('click',e=>{const r=v.getBoundingClientRect();const vw=v.videoWidth,vh=v.videoHeight;if(!vw)return;
+ const s=Math.min(r.width/vw,r.height/vh),dw=vw*s,dh=vh*s,ox=(r.width-dw)/2,oy=(r.height-dh)/2;
+ const x=(e.clientX-r.left-ox)/dw,y=(e.clientY-r.top-oy)/dh;if(x<0||x>1||y<0||y>1)return;
+ v.pause();pin={x:+x.toFixed(4),y:+y.toFixed(4)};drawPins();$('draft').focus()});
+function drawPins(){const box=$('pins');box.innerHTML='';if(!pin||!v.videoWidth)return;const r=v.getBoundingClientRect(),st=$('stage').getBoundingClientRect();
+ const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),dw=v.videoWidth*s,dh=v.videoHeight*s,ox=(r.width-dw)/2,oy=(r.height-dh)/2;
+ const d=document.createElement('div');d.className='pin';d.style.left=(r.left-st.left+ox+pin.x*dw)+'px';d.style.top=(r.top-st.top+oy+pin.y*dh)+'px';box.appendChild(d)}
+window.onresize=drawPins;
+// timeline: click seeks, drag marks a range
+const tAt=e=>{const r=$('bar').getBoundingClientRect();return Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*(v.duration||0)};
+$('bar').onmousedown=e=>{dragging={a:tAt(e)};v.pause();v.currentTime=dragging.a};
+window.onmousemove=e=>{if(!dragging)return;const b=tAt(e);if(Math.abs(b-dragging.a)*fps()<3)return;range={start:Math.min(dragging.a,b),end:Math.max(dragging.a,b)};showSel();v.currentTime=b};
+window.onmouseup=()=>{dragging=null};
+function showSel(){const s=$('sel');if(!range||!v.duration){s.hidden=true;return}s.hidden=false;s.style.left=(100*range.start/v.duration)+'%';s.style.width=(100*(range.end-range.start)/v.duration)+'%'}
+$('clear').onclick=()=>{pin=null;range=null;drawPins();showSel()};
+function add(){const text=$('draft').value.trim();if(!text)return;const t=range?range.start:v.currentTime;
+ notes.push({id:Date.now(),t:+t.toFixed(3),frame:Math.round(t*fps()),end:range?+range.end.toFixed(3):null,x:pin?pin.x:null,y:pin?pin.y:null,text});
+ notes.sort((a,b)=>a.t-b.t);$('draft').value='';pin=null;range=null;drawPins();showSel();save();render()}
+$('add').onclick=add;
+document.addEventListener('keydown',e=>{if(['TEXTAREA','INPUT'].includes(e.target.tagName)){if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))add();return}
+ if(e.key===' '){e.preventDefault();$('play').click()}else if(e.key===',')step(-1);else if(e.key==='.')step(1);else if(e.key.toLowerCase()==='n'){v.pause();$('draft').focus();e.preventDefault()}});
+function render(){$('count').textContent=notes.length+(notes.length===1?' note':' notes');const L=$('list');L.innerHTML='';
+ notes.forEach((n,i)=>{const d=document.createElement('div');d.className='note';
+  d.innerHTML=`<div class="h"><a class="lnk">#${i+1} · ${n.end!=null?n.t.toFixed(2)+'–'+n.end.toFixed(2)+' s':fmt(n.t)}${n.x!=null?' · pin':''}</a><a class="lnk del">delete</a></div><textarea></textarea>`;
+  d.querySelector('textarea').value=n.text;d.querySelector('textarea').oninput=e=>{n.text=e.target.value;save()};
+  d.querySelector('.lnk').onclick=()=>{v.pause();v.currentTime=n.t;pin=n.x!=null?{x:n.x,y:n.y}:null;range=n.end!=null?{start:n.t,end:n.end}:null;setTimeout(()=>{drawPins();showSel()},60)};
+  d.querySelector('.del').onclick=()=>{notes=notes.filter(x=>x!==n);save();render()};L.appendChild(d)});
+ const bar=$('bar');bar.querySelectorAll('.mk,.rg').forEach(x=>x.remove());if(!v.duration)return;
+ notes.forEach(n=>{const m=document.createElement('div');if(n.end!=null){m.className='rg';m.style.left=(100*n.t/v.duration)+'%';m.style.width=(100*(n.end-n.t)/v.duration)+'%'}else{m.className='mk';m.style.left=(100*n.t/v.duration)+'%'}bar.appendChild(m)})}
+$('finish').onclick=()=>{const out={video:name,round:$('round').value,fps:fps(),duration:+(v.duration||0).toFixed(3),
+  notes:notes.map(({id,...n})=>n),howto:'t/end in seconds; x,y are 0-1 from the top-left of the frame (null = no pin). Run: python3 scripts/review_frames.py <this.json> <video> <out_dir>'};
+ const s=JSON.stringify(out,null,2);const blob=new Blob([s],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='review-'+out.round+'.json';a.click();
+ (navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>$('status').textContent='Copied and downloaded review-'+out.round+'.json ('+out.notes.length+' notes).',()=>$('status').textContent='Downloaded review-'+out.round+'.json ('+out.notes.length+' notes).')};
+$('theme').onclick=()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark'};
+</script></body></html>

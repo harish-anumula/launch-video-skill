@@ -27,7 +27,7 @@ For a project-level skill, clone it into `<repo>/.claude/skills/launch-video/` i
 3. Captures the product's screens with fictional data and rebuilds them as React components, so they stay sharp and every part can animate.
 4. Records the voiceover one line at a time with word timings, and picks the best take by transcript match (`scripts/vo_lines.py`, `scripts/vo_pick.py`).
 5. Generates or measures the music and snaps every cut to the beat (`scripts/music_qa.py`, `scripts/build_timing.py`).
-6. Builds scenes from a small library of visuals (device and phone mockups, a composer with answers, notifications, before and after, steps, a depth cloud of integrations) and renders contact sheets for review.
+6. Builds scenes from a small library of visuals (device and phone mockups, a composer with answers, notifications, before and after, steps, a depth cloud of integrations) and renders contact sheets for review. You review each render in a small local page: click the frame that's wrong, type the note, and the agent gets every note with its timestamp and a frame image with your pin on it (`scripts/review/review.html`, `scripts/review_frames.py`).
 7. Renders the master at −14 LUFS with a finished cover as frame 0, plus a thumbnail and optional cutdowns.
 
 ## What you need
@@ -51,8 +51,8 @@ Keys stay out of the repo. The scripts read `ELEVENLABS_API_KEY` from your envir
 | Path | What it is |
 | --- | --- |
 | `SKILL.md` | The instructions the agent follows |
-| `references/` | Story shapes and hooks, the visual catalog, motion and style notes, audio, review checklist, gotchas |
-| `scripts/` | Voiceover, music, timing, contact sheets and finalizing |
+| `references/` | Story shapes and hooks, the visual catalog, motion and style notes, audio, the frame-pinned review loop, review checklist, gotchas |
+| `scripts/` | Voiceover, music, timing, contact sheets, the review page and finalizing |
 | `template/` | A Remotion starter with brand tokens, timing helpers, generic scenes and visuals, and a Catalog preview |
 
 Issues and pull requests are welcome.
