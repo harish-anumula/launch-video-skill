@@ -38,3 +38,17 @@
 ## Shell
 - In zsh, `set -- $var` doesn't word-split. Iterate over explicit lists or use `${var%%:*}` / `${var##*:}`.
 - Avoid `rm` of globs after `cd` in one command; many safety hooks block it. Write to a new folder instead.
+
+## 3D (Three.js)
+- Blank canvas / "Error creating WebGL context" → render with `--gl=angle` (or `swangle` on a GPU-less Linux box), or set `Config.setChromiumOpenGlRenderer("angle")`. A failed render leaves the previous output file in place; delete outputs before rendering so later steps don't process a stale video.
+- A texture, SVG or model shows up blank in renders but fine in the Studio → it was loaded with Suspense/`useLoader`; hold it with `delayRender`/`continueRender` (see `three-d.md`).
+- Brand colours look dull or dark in 3D → `flat` on `ThreeCanvas`, `toneMapped={false}` on unlit materials.
+
+## Multi-part films and studio workflow
+- **Long films from parts.** Build 15–30 s parts whose events all come from one prop-driven timing table (`beat0`, `beat`, beat indices, accents). Give each part `endCard`, `music`, `sfx`, `joinIn`/`joinOut` props, and make its first and last 0.5 s clean. An assembler then re-snaps every part to one film track and designs match cuts on downbeats.
+- **Fictional names are often real.** Web-search every invented company, person and handle before rendering. In one run, 16 plausible names turned out to be real businesses (e.g. "Juniper Health", "Indigo Payments", "Marlow Studios"). Keep a list of each name and what the search found.
+- **Gain staging before finalize.** If the mix is quiet, the −14 LUFS master adds lots of gain, and the limiter then flattens every hit (the climax fell below the median onset). Balance beds up and SFX/sub down so the limiter takes ≤3 dB. Check that the raw render doesn't clip.
+- **Small speakers.** A sub-only impact disappears on laptop and phone speakers. Add harmonics from its own sub, or layer a mid-range hit.
+- **ElevenLabs music uses the same character credits as TTS** (about 10–13 credits per second of music). Budget for it. Concurrent agents will drain the pool.
+- **Independent reviewers find real defects every round.** Give them a fixed brief (frame strips at every join, beat-sync tables from the FINAL mp4's audio, phone and 1 Mbps checks, accuracy against sources). Expect to fix and re-review.
+- **Don't Mickey-Mouse the music.** Viewers found music bent to hit every visual event (dips before hits, accents on every landing, a different track per scene) weird. They found pre-hit dips "too silent" on phones, and scene-to-scene track changes jarring. Use one continuous track with a natural arc. Cut the picture to its sections, and sync only the big moments. UI-led storytelling with clean cuts beat elaborate 3D match-cut transitions.

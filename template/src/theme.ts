@@ -14,7 +14,7 @@ import { loadFont as loadNewsreader } from "@remotion/google-fonts/Newsreader";
 import { FontName, MonoName, PRESETS, PresetId, SerifName } from "./presets";
 
 // THE LOOK. Pick a named preset (see references/style-presets.md), then swap its placeholder brand colours for the product's.
-// "clean-launch" | "fast-concept" | "kinetic-type" | "bento-product" | "data-story" | "system-diagram" | "night-signal" | "paper-cut"
+// "clean-launch" | "fast-concept" | "kinetic-type" | "bento-product" | "data-story" | "system-diagram" | "night-signal" | "paper-cut" | "mascot-carry"
 export const PRESET: PresetId = "clean-launch";
 
 export const P = PRESETS[PRESET];

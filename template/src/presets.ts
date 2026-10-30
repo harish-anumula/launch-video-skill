@@ -11,7 +11,8 @@ export type PresetId =
   | "data-story"
   | "system-diagram"
   | "night-signal"
-  | "paper-cut";
+  | "paper-cut"
+  | "mascot-carry";
 
 /** Google fonts the presets use (all in @remotion/google-fonts). theme.ts loads only the chosen preset's. */
 export type FontName = "Geist" | "InterTight" | "IBMPlexSans" | "Figtree" | "Fraunces" | "DMSans";
@@ -463,6 +464,48 @@ export const PRESETS: Record<PresetId, Preset> = {
         float: "0 3px 0 rgba(59,23,52,0.06), 0 22px 44px -18px rgba(43,15,37,0.32)",
       },
     },
+    hud: false,
+    device: "aluminium",
+  },
+  // Light and friendly. One character (mascot, agent avatar, app icon with a face) carries the film and docks into the UI.
+  "mascot-carry": {
+    id: "mascot-carry",
+    name: "Mascot Carry",
+    feel: "Light, friendly and product-native; one character carries every scene.",
+    mode: "light",
+    colors: {
+      brand: "#2F7DF6",
+      brandDeep: "#0A1B3D",
+      brandLight: "#5B9BFF",
+      brandSoft: "#E6F0FF",
+      onBrand: "#FFFFFF",
+      block: "#0A1B3D", // the end card's dark shade (the one light-to-dark flip)
+      accent2: "#F472B6",
+      ink: "#0B0B0C",
+      inkSoft: "#6B6F76",
+      paper: "#F7F8FA",
+      card: "#FFFFFF",
+      line: "#E5E7EB",
+      muted: "#F1F3F6",
+      green: "#22C55E",
+      greenSoft: "#DCFCE7",
+      amber: "#F59E0B",
+    },
+    blocks: "flat",
+    fonts: { display: "Geist", displayWeight: 600, body: "Geist", mono: "GeistMono", serif: null },
+    type: { tracking: "-0.03em", accent: "color", underline: false, underlineStyle: "hand" },
+    ease: STD_EASE,
+    springs: {
+      soft: { damping: 200 },
+      card: { mass: 1, damping: 12, stiffness: 220 }, // the character's body: visible overshoot
+      pop: { mass: 1, damping: 14, stiffness: 260 }, // props and chips
+      heavy: { mass: 1.4, damping: 30, stiffness: 90 },
+      slam: { mass: 1, damping: 24, stiffness: 310 },
+    },
+    text: { wordIn: 0.3, wordGap: 0.24, blurPx: 0 },
+    scene: { exitFade: 0, exitPush: 0, push: 0.02, transition: "cut", motionBlur: false },
+    pacing: { secondsPerBeat: 2.5, beatRange: [2, 3.5], colorBlocks: [0, 1], bpm: [95, 120] },
+    texture: { grain: 0, grainOnBlock: 0.04, grainBlend: "multiply", shadow: SOFT_SHADOW },
     hud: false,
     device: "aluminium",
   },

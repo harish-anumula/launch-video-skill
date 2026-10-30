@@ -11,6 +11,7 @@ import { REVEAL_LEAD } from "../scenes/Reveal";
 import { PRESETS, type PresetId } from "../presets";
 import { BentoSnap } from "./BentoSnap";
 import { BrandWhip } from "./BrandWhip";
+import { CharacterCarry } from "./CharacterCarry";
 import { ChartMorph } from "./ChartMorph";
 import { HeadlineProof } from "./HeadlineProof";
 import { KineticSlam } from "./KineticSlam";
@@ -138,5 +139,14 @@ export const SIGNATURES: Record<PresetId, Signature> = {
       lead: 0,
       C: () => <PaperParallax dur={len("notify")} title={voLines("notify", { breaks: [0, 4], accent: [3] })} />,
     },
+  },
+  // No single beat: Character Carry is the thread through the whole film (each scene needs a slot for the character),
+  // so it is built per video from the storyboard. The scene here is its 6 s sample.
+  "mascot-carry": {
+    name: "Character Carry",
+    file: "visuals/CharacterCarry.tsx",
+    seconds: 6,
+    Scene: ({ dur }) => <CharacterCarry dur={dur} />,
+    beat: null,
   },
 };

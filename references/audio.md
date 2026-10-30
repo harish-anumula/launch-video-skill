@@ -16,6 +16,8 @@
 ## Music
 - ElevenLabs Music: `POST /v1/music`. Prompt-only (`prompt`, `music_length_ms`, `force_instrumental: true`) or a composition plan. Plan shapes differ by model (older models: `sections` with local styles; newer: `chunks` with `text`, `duration_ms`, `positive_styles`) — read the current API reference before calling.
 - Expect the requested BPM and section boundaries to be ignored; measure the result and adapt the edit.
+- Composition-plan chunks must be ≥ 3000 ms. Style tags that name a brand or artist ("… keynote feel") are rejected as copyrighted. The Starter plan allows 2 concurrent requests. Prompt mode with explicit timings ("at 11 seconds one huge impact, then a warm chord that rings out by 16 seconds") often gives a better arc than a plan; generate 2 seeds and keep the one whose measured energy curve (RMS per 0.5 s) and onsets match the edit.
+- Measure every track before cutting: beat grid (librosa), RMS per 0.5 s for the arc, the strongest onsets for hits, and low-band energy (<150 Hz) to see where the kick enters. Then snap every visual event to those times, not to the times you asked for. `trimBefore` on `<Audio>` drops a slow intro.
 - Royalty-free alternatives: Pixabay Music, YouTube Audio Library, Uppbeat, or a paid library (Artlist, Musicbed, Epidemic Sound).
 - Search words that work: "minimal electronic", "warm plucks", "soft punchy kick", "airy pads", "confident, optimistic", 100–125 BPM, a lift ~70% through.
 

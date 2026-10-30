@@ -18,7 +18,7 @@ import { Steps } from "./visuals/Steps";
 import { IntegrationIcon, INTEGRATIONS } from "./components/Ui";
 import { SIGNATURES } from "./visuals/signatures";
 
-/** Preview every visual building block (4 s each), then the eight signature scenes (one per preset, at their own length),
+/** Preview every visual building block (4 s each), then the nine signature scenes (one per preset, at their own length),
  *  all in the active preset, so you can pick moves for a new product. */
 const Slot: React.FC<{ name: string; children: (t: number) => React.ReactNode }> = ({ name, children }) => {
   const t = useT();

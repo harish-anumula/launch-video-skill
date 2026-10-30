@@ -37,6 +37,16 @@
 - Iris: `clip-path: circle(r at x y)` growing from a meaningful point (the logo's centre).
 - Rise/wipe: brand-colour panel translating up/sideways over the previous scene.
 - Match cut: an element in scene A becomes the element in scene B (a card flies into the next layout).
+- Carry: one character or icon stays on screen across the cut and lands in a slot of the next scene (see *Character Carry* in `style-presets.md`). The rest of the frame can hard-cut around it.
+
+## Character acting
+For a mascot or avatar, a few classic animation principles do most of the work:
+- **Squash and stretch, same volume.** On landing, scaleY 0.85 with scaleX 1.12 for 2 to 3 frames, then a spring back. Stretch along the path while it moves fast.
+- **Anticipation.** A small squash or a dip the other way 3 to 5 frames before any jump or move.
+- **Eyes lead.** The eyes (or the face) turn toward what enters next 4 to 6 frames before it enters, so the viewer looks there too.
+- **Blink** every 2 to 3 s while it rests (eyes scaleY to 0.1 and back over about 4 frames). A resting character that never blinks reads as a frozen frame.
+- **Follow-through.** Props (a headset, a hat) lag the body by 2 to 3 frames and settle on their own spring.
+- **Rest.** It holds still with only a blink while the UI proves the claim; acting all the time steals the eye from the product.
 
 ## Texture
 - Film grain: SVG `feTurbulence` re-seeded every 2 frames, 6–12% opacity (`multiply` on light, `soft-light` on colour).

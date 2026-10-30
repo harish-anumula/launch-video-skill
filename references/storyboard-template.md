@@ -15,6 +15,7 @@ There is no single launch-video formula. Pick the story shape that fits the prod
 | **G. Teaser** | Fragments and close-ups, the name withheld until the end | Upcoming launches, brand moments | Leaves less room for features |
 | **H. First-person demo** | The maker speaks (on camera or in a first-person VO): one or two lines on who they are, what they built and why it matters to them, then "let me show you" and the product working, one beat at a time | Founders, dev and indie tools, early products, weekly demos | Frame the problem as the maker's own, not "everyone has this problem"; keep the setup under ~20% of the runtime |
 | **I. What we shipped** | A plain list of this week's changes, each shown working, often by the people who built them | Changelogs, users who already know the product, build-in-public updates | Needs real, visible changes; it can skip the hook, but every item must show on screen |
+| **J. Character gets a power** | The product's character on its own → it gets the product (a prop or costume says what) → it uses the power 3–5 times, one feature each, docking into the UI where it happens → name → partners or CTA | Products with a mascot or an agent avatar; AI agents ("your agent can now…"); 15–30 s social teasers | Needs a character the brand already has; the character must keep moving the story, not decorate it |
 
 ## Hook types (first 1–3 seconds)
 
@@ -25,6 +26,7 @@ There is no single launch-video formula. Pick the story shape that fits the prod
 - **Sound-led:** a sound the product makes (a notification, a click), then the picture.
 - **Direct address:** speaking to a specific viewer ("If you run payroll for a 20-person team…"). It works well for a niche: a few thousand views from the right people beat a million from anyone.
 - **Time jump:** a short before-and-now story ("A month ago this was a sketch…") that opens a gap the viewer wants closed.
+- **Character first:** the product's character appears alone, does one small, alive thing (lands, blinks, looks at the viewer), and the first line names what it is about to get. Movement in the first second without any text to read.
 - **Honest surprise:** a true, slightly self-deprecating admission from the maker ("I nearly didn't post this"). It turns the maker into a character people root for.
 
 Rules: the hook earns the next five seconds; don't open on a logo; vary the hook when making several videos in a row.
@@ -42,6 +44,8 @@ Cuts keep the eye busy; beats keep people watching. A beat is a new step in the 
 ## Using reference videos
 
 Study references for craft: pacing, cut rhythm, transitions, camera moves, type treatment, how UI is simplified, how VO lines sit on cuts. **Never copy their content**: hook lines, catchphrases, taglines, scripts, signature openings or exact scene sequences. Before building, compare your script against the reference transcripts and rewrite anything that echoes them. Credit inspiration if you post about the process.
+
+**A reference that only lives on X (or another site) needs no download.** Open the post in a browser, pin the page's `<video>` full-viewport with a line of JavaScript (`position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: contain; z-index: max`), pause it, then set `currentTime` in steps (about every 0.5 to 1 s, finer around transitions) and take a screenshot at each. Read `duration` first. That gives a contact sheet of the moves without saving the file; `scripts/analyze_reference.sh` needs a local file and also gives loudness and a transcript, so ask before downloading one.
 
 ## Shape A as a beat sheet (example timings for 60–75s)
 

@@ -4,7 +4,7 @@ A preset is a complete look with a name. It sets the palette, type, easing and s
 
 In code, set `PRESET` in `src/theme.ts`. Every token in `src/presets.ts` (colours, fonts, springs, easing, word timing, exit fade and push, grain, HUD, block style, seconds per beat, device finish) then flows into the scenes and visuals. Swap the preset's placeholder `brand`, `brandDeep`, `brandLight` and `brandSoft` for the product's own colours. The template already builds the shared moves (word build, accent word, HUD, card proof, whip and rise blocks, push).
 
-Each preset also has a **signature scene** in the template, a full-frame Remotion component in plain React, SVG and CSS that shows its one strong move. They live in `src/visuals/` and are listed in `src/visuals/signatures.tsx`. The default storyboard plays the active preset's signature for one beat, the `Signature` composition plays it alone, `Sample` plays it at 6 s, and the Catalog ends with all eight. Every surface, device and chrome element reads the preset tokens (`UI` and `DEVICE` in `theme.ts`), so dark presets get dark cards, windows and a graphite laptop. Build the remaining moves per video from the recipes below.
+Each preset also has a **signature scene** in the template, a full-frame Remotion component in plain React, SVG and CSS that shows its one strong move. They live in `src/visuals/` and are listed in `src/visuals/signatures.tsx`. The default storyboard plays the active preset's signature for one beat, the `Signature` composition plays it alone, `Sample` plays it at 6 s, and the Catalog ends with all nine. Every surface, device and chrome element reads the preset tokens (`UI` and `DEVICE` in `theme.ts`), so dark presets get dark cards, windows and a graphite laptop. Build the remaining moves per video from the recipes below.
 
 ## Rules for every preset
 - **One preset per video, plus at most one borrowed move** from another preset (for example one Slot Counter inside a Clean Launch video). The borrowed move takes the host preset's palette and type.
@@ -25,8 +25,11 @@ Each preset also has a **signature scene** in the template, a full-frame Remotio
 | How it works, integrations, an API, a data flow | **System Diagram** | The product as a diagram that draws itself |
 | An idea or concept explainer for the LinkedIn or X feed, 4:5 | **Night Signal Explainer** | Dark, focused, one idea per screen |
 | A calm human story, a fresh start, a consumer or wellbeing product | **Paper Cut** | Warm and slow; a breather, not a pitch |
+| Only when the product already has a character (a mascot, an agent's avatar, an app icon with a face), 15 to 30 s for social | **Mascot Carry** | One friendly thread through every scene; each feature gets one small native proof |
 
 If two fit, ask which feeling matters more (calm or energy, product UI or ideas) and recommend one.
+
+Mascot Carry is an optional mode, not a default. A product with a character can still use any other preset; the character then appears as that preset's one borrowed move (Character Carry for the transitions, or an Inline Glyph in one headline). Without a character, ignore it.
 
 ## Shared moves (recipes)
 Presets name these moves. Values are for 1920×1080 at 30 fps; Remotion `spring()` configs use mass 1 unless given.
@@ -48,6 +51,10 @@ Presets name these moves. Values are for 1920×1080 at 30 fps; Remotion `spring(
 - **Iso Build.** An isometric platform rises, then cubes drop with a small squash into a skyline (orthographic projection in SVG, faces sorted back to front and shaded from one light direction) on a slow turntable. A brand-colour keystone lands last and sends a ripple through. This is a depth moment.
 - **Paper Parallax.** Five or six layered SVG hill silhouettes from light to dark, each with paper-grain turbulence and a soft drop shadow, moving at depth-scaled speeds during a slow 4 to 6% push. A sun rises with soft halo rings; a few birds or a cloud drift.
 - **Painted underline and glow.** A stroke under the accent phrase drawn on with `feTurbulence` plus `feDisplacementMap` for a painted edge, with a soft glow of the same colour (8 to 16 px blur, 25 to 40% opacity).
+
+- **Character Carry** (template `CharacterCarry`). One element, usually the product's character, never cuts away. It is the transition: at the end of each beat it hops into a slot the next scene already has (the caller's avatar in a phone's call pill, the sender's avatar in a chat, the active row of an app sidebar, the logo spot of the end lockup). The hop is an arc of 0.4 to 0.6 s on in-out cubic, with a squash before take-off and on landing; the character scales to the slot's size on the way and the slot's placeholder fades as it lands. Plan the slots in the storyboard: every scene needs one.
+- **Inline Glyph** (template `CharacterCarry`). An image stands in for a word inside the headline ("Meet your [avatar] assistant"). Leave its gap in the line, build the words around it, then drop the glyph in last with a pop at 1.1 to 1.3 times the cap height. For the next line the glyph leaves the sentence and the words close up behind it.
+- **Chip Unfold** (recipe only). A pill grows from zero width between two words and pushes them apart (animate the chip's width on a spring inside a flex row, so the line reflows), then its content arrives: an icon, then a short value typing in. Use it to show the thing the line names ("Arrives [Fri 6 Nov]", "Saved [£1,240]").
 
 Motion blur is `MotionBlur` in `src/lib/kit.tsx`. It renders several time samples of the moving layer and averages them, and its `enabled` test keeps it off held frames. The same file has `springAt` (a closed-form spring that takes any time, so blur samples stay smooth), `ramp`, `route` and `BEAT`. No extra dependency.
 
@@ -220,6 +227,26 @@ Motion blur is `MotionBlur` in `src/lib/kit.tsx`. It renders several time sample
 - **Visuals that fit.** `Phone`, gentle `Notifications`, `Steps`, `StatCountUp` for one warm number, `Device` sparingly.
 - **Music.** 70 to 90 BPM, felt piano, warm pads, light acoustic guitar or strings, swelling slowly toward the payoff. No hard drops.
 - **6 s sample.** `Sample`, the layers settling with the sun rising and a slow push, the headline building in Fraunces with its italic accent and underline.
+
+## 9. Mascot Carry (`mascot-carry`)
+*Light, friendly and product-native. One character carries the whole film and docks into each scene's UI.*
+
+- **Use it for** consumer and small-business apps, AI agents and assistants that have an avatar, and 15 to 30 s feature teasers for social. It needs a character the brand already has (a mascot, an agent avatar, an app icon that can take a face). Never invent a mascot for a brand without the person's yes.
+- **Palette.** Near-white paper, ink, one brand colour for the character's prop and the UI accents, and the brand's darkest shade kept back for the end card (`brand` and `brandDeep` are placeholders).
+  ```
+  paper #F7F8FA   card #FFFFFF   ink #0B0B0C   inkSoft #6B6F76
+  brand #2F7DF6   brandDeep #0A1B3D   onBrand #FFFFFF
+  end card: radial gradient brandDeep → near-black
+  ```
+- **Type.** One grotesk sans at 600 (Inter Display or Geist), 72 to 96 px, sentence case, tracking -0.03em. No accent serif; the character is the accent. UI text in the same sans at smaller sizes so the phone and desktop rebuilds read as the real OS.
+- **Motion.** The character on a bouncy spring (`body { stiffness: 220, damping: 12 }`), props and chips on `pop { stiffness: 260, damping: 14 }`, UI on ease-out-expo. Words build at about 0.25 s each with no blur. Character acting as in `motion-cheatsheet.md` (*Character acting*): squash on every landing, a blink every 2 to 3 s, eyes that look at what comes next. Clean cuts for everything except the character, which carries.
+- **Pacing.** 15 to 25 s. A cold open on the character alone (1.5 to 2.5 s, no words), then one line of three to five words per feature at about 2.5 s a beat, each with one small native proof, then the end card. The light-to-dark flip happens once, on the end card.
+- **Signature moves.** Character Carry. Inline Glyph in the first line. A costume reveal: one prop snaps onto the character and says what the product lets it do (a headset for calls, a pen for writing). Chip Unfold for one concrete value. The end card flips to the brand's dark shade: app icon, then wordmark, then (if there is one) a partner lockup with the character in the partner slot.
+- **Signature scene.** `CharacterCarry` (`src/visuals/CharacterCarry.tsx`). A placeholder character (round ink body, pill eyes) drops in with a stretch and a squash, blinks, looks up as a headset drops on, shrinks into the headline as an Inline Glyph while its eyes follow the words, then hops on an arc into the avatar slot of a phone's call pill, turning light for the dark slot; the pill swaps from a placeholder caller to the character's call with a live waveform. It takes no single beat: Character Carry runs through the whole film, so build each scene's slot per video. The `Mascot` component in the same file takes the pose inputs (squash, look, blink, prop, follow-through, invert); swap its drawing for the brand's character.
+- **Don't** make the character act in every frame (it rests while the UI proves the claim), give it more than one prop at a time, cut away from it between feature beats, let a line run past five words, show a full screen where one native element proves the claim, or add sound effects to UI events (only the character's own actions get one).
+- **Visuals that fit.** `Phone` with a call or alert pill at the top, `Notifications`, `ComposerAnswer` as a chat thread with the character as the avatar, `Device` for one desktop beat, `Steps` for an agent doing work.
+- **Music.** 95 to 120 BPM, light and bouncy (plucks, marimba, a soft kick). Small sound effects on the character's landings and pops only.
+- **6 s sample.** The character drops in and squashes, blinks, its prop pops on, it slides into a headline as an Inline Glyph, then hops down and docks into a phone's call pill.
 
 ---
 

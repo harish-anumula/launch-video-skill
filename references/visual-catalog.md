@@ -16,7 +16,7 @@ Pick one visual per feature beat. Vary them across the video; don't repeat the s
 | `DashboardMock` | Example rebuilt screen with KPIs, a line and bars; a filter click updates everything | A starting point for rebuilding *your* product's real screen inside `Device` |
 
 ## Signature scenes (one per style preset)
-Full-frame scenes of 3 to 6 s, built only from the preset tokens, so each also works as the one borrowed move in another preset. The registry is `visuals/signatures.tsx`; the `Signature` and `Sample` compositions play the active preset's, and the Catalog ends with all eight. The default storyboard plays the active preset's signature in one beat (see `video.config.tsx`).
+Full-frame scenes of 3 to 6 s, built only from the preset tokens, so each also works as the one borrowed move in another preset. The registry is `visuals/signatures.tsx`; the `Signature` and `Sample` compositions play the active preset's, and the Catalog ends with all nine. The default storyboard plays the active preset's signature in one beat (see `video.config.tsx`).
 
 | Scene | Preset | Shows | Default beat |
 |---|---|---|---|
@@ -28,9 +28,12 @@ Full-frame scenes of 3 to 6 s, built only from the preset tokens, so each also w
 | `LineDraw` | System Diagram | Sources, hub and outputs draw themselves; a comet pulse runs through and the outputs light up with checks | `ask` |
 | `SignalDiagram` | Night Signal Explainer | A dark three-step diagram with labelled parts; violet points of light flow into a ring, turn green and land in the result | `notify` |
 | `PaperParallax` | Paper Cut | Six paper hill layers slide up into place with soft shadows, the sun rises with halo rings, calm depth-scaled parallax | `notify` |
+| `CharacterCarry` | Mascot Carry | A character drops in, gets its headset, sits in the headline as a word, then hops into the caller slot of a phone's call pill and takes the call | None (it carries the whole film) |
 
 ## Beyond the catalog
 - **Rebuild, don't record.** Simplified React rebuilds of the real screens (real copy, real layout, fictional data) stay sharp at 4K and every part can animate. Use real screenshots in `Device`/`Phone` when a rebuild isn't worth it.
+- **One native element beats a full screen.** A phone's call pill at the top of the screen, one message bubble, a menu-bar item or a single app sidebar row proves a claim faster than a whole rebuilt screen, because viewers already know what it means. Rebuild only that element, crisply, in the OS's own shapes.
 - **Moving sub-navigation must change the content.** If a sidebar highlight moves, show the page it points to.
+- **Real 3D?** A Three.js layer (`references/three-d.md`) for an extruded 3D logo, an orbit of logo tiles, particles or a landscape; HTML captions stay on top.
 - **New visual?** Write it in `visuals/` as `({ t, ...props }) => ReactNode`, drive everything from `t` (scene seconds), add it to the Catalog.
 - **Map features to moves, not our examples.** A payments product might use `Phone` → `Steps` → `Notifications` → `StatCountUp`; a dev tool might use `ComposerAnswer` (terminal) → `BeforeAfter` (diff) → `DepthCloud` (languages) → `Device`.
