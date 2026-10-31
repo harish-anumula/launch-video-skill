@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 import React from "react";
 import { AbsoluteFill, Series } from "remotion";
 import { Stamp } from "./components/App";

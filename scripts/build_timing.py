@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Snap scene cuts to the music's beats, place each VO line, and write the timing file the Remotion scenes read.
 usage: uvx --python 3.11 --with librosa python scripts/build_timing.py audio/music/<track>.mp3 [--snap 0.3]
 reads config/timeline.json + audio/vo/picks.json; copies audio into video/public/{music,vo}; writes video/src/data/timing.json."""

@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Rank stock voices on your ElevenLabs account by similarity to a reference voice (ECAPA speaker embeddings).
 Use only to find a similar *premade/stock* voice. Do not clone real people's voices without consent.
 usage: uvx --python 3.11 --with speechbrain --with "torchaudio<2.9" --with "torch<2.9" --with librosa --with soundfile --with requests \

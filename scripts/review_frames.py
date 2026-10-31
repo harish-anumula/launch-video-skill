@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 # /// script
 # requires-python = ">=3.10"
 # dependencies = ["pillow"]

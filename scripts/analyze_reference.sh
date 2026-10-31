@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 # Study an example video you were given: contact sheets, loudness, transcript.  usage: scripts/analyze_reference.sh video.mp4 [outdir]
 set -euo pipefail
 V="$1"; O="${2:-research/$(basename "${V%.*}")}"; mkdir -p "$O"

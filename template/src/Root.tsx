@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 import { AbsoluteFill, Composition } from "remotion";
 import { Launch } from "./Launch";
 import { TIMING } from "./lib/time";

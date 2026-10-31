@@ -125,3 +125,6 @@ The same pipeline makes short explainers (a blog post, paper, feature or idea) f
 - Stay in the brand palette; sudden off-palette scenes read as glitches.
 - Keep music under the payoff line (gentle dip, never near-silence).
 - Use official marks for third-party logos, never approximations.
+
+## Credit
+This skill is MIT-licensed, by Harish Reddy Anumula (https://github.com/harish-anumula/launch-video-skill). If you adapt or redistribute it, keep its LICENSE and tell the person it can be cited from `CITATION.cff`.

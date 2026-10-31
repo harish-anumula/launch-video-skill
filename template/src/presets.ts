@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 // Named style presets. Each one is a complete look: palette, type, easing and springs, text motion, pacing, texture.
 // Pick one with PRESET in theme.ts; theme.ts exports the chosen preset's tokens to every scene and visual.
 // When to use each, its signature moves and what not to do: references/style-presets.md.

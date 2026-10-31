@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Pick the best take per line: transcript match (Whisper) x2 + speaker similarity to an optional reference voice.
 usage: uvx --python 3.11 --with speechbrain --with "torchaudio<2.9" --with "torch<2.9" --with librosa --with soundfile --with mlx-whisper \
          python scripts/vo_pick.py [--ref path/to/reference_vocals.wav] [--asr mlx|openai]

@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Measure tracks so the edit can follow the music: tempo, first beat, loudness per second.
 usage: uvx --python 3.11 --with librosa python scripts/music_qa.py audio/music/a.mp3 [audio/music/b.mp3 ...]"""
 import sys, librosa, numpy as np

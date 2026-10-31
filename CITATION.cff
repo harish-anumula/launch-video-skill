@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "launch-video: an agent skill for product launch videos in code"
+abstract: "An agent skill (Claude Code, Codex) for making short product launch videos in code: story shapes, Remotion scenes rebuilt from the product's real screens, voiceover and music, and beat-synced cuts."
+authors:
+  - family-names: Anumula
+    given-names: Harish Reddy
+    orcid: "https://orcid.org/0009-0009-9294-0780"
+repository-code: "https://github.com/harish-anumula/launch-video-skill"
+url: "https://github.com/harish-anumula/launch-video-skill"
+license: MIT
+version: "1.0.0"
+date-released: 2026-10-31
+keywords:
+  - "agent skill"
+  - "Claude Code"
+  - "Codex"
+  - "Remotion"
+  - "video"
+  - "motion design"

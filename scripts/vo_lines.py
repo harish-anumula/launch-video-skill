@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Generate N takes per VO line with word timings.
 usage (from project root):  uv run --with requests scripts/vo_lines.py [--takes 3] [--only id1,id2]
 reads config/script.json -> writes audio/vo/lines/<id>_s<k>.mp3 + .json (words with start/end seconds). Existing takes are skipped."""

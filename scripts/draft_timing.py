@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Animatic timing without audio: spaces each line's words evenly (~2.6 words/s) so scenes can be built before the VO exists.
 usage (project root): python3 scripts/draft_timing.py   -> video/src/data/timing.json (vo and music null)"""
 import json, pathlib, sys

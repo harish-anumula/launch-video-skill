@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 // THE FILE TO EDIT PER PRODUCT. One entry per scene id in config/timeline.json, in order.
 // Pick a visual per feature beat from visuals/ (or write a new one); anything without a visual renders as a big VO-synced headline.
 import React from "react";

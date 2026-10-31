@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 import { Easing } from "remotion";
 import { loadFont as loadDMMono } from "@remotion/google-fonts/DMMono";
 import { loadFont as loadDMSans } from "@remotion/google-fonts/DMSans";

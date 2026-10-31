@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Shared helpers. Project layout (run scripts from the project root):
   config/script.json   config/timeline.json   config/music.json
   audio/vo/lines/      audio/music/           video/ (Remotion project)

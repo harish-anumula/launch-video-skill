@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 # Fit a track to the edit: time-stretch so its natural ending lands at TARGET seconds, and lift a too-quiet intro.
 # usage: scripts/stretch_music.sh in.mp3 out.mp3 <content_end_s> <target_end_s> [intro_gain=3.2] [intro_s=9]
 set -euo pipefail

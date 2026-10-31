@@ -1,3 +1,4 @@
+// launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 import { AbsoluteFill, Sequence, interpolate, staticFile, useVideoConfig } from "remotion";
 import { Audio } from "@remotion/media";
 import { Hud } from "./components/Hud";

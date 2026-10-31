@@ -38,6 +38,23 @@ For a project-level skill, clone it into `<repo>/.claude/skills/launch-video/` i
 
 Keys stay out of the repo. The scripts read `ELEVENLABS_API_KEY` from your environment or a git-ignored `.env`.
 
+## Citing
+
+If you use launch-video in research, a write-up or a product, please cite it. GitHub's **Cite this repository** button (from [CITATION.cff](CITATION.cff)) gives APA and BibTeX:
+
+```bibtex
+@software{anumula_launchvideo_2026,
+  author  = {Anumula, Harish Reddy},
+  title   = {launch-video: an agent skill for product launch videos in code},
+  year    = {2026},
+  version = {1.0.0},
+  url     = {https://github.com/harish-anumula/launch-video-skill},
+  license = {MIT}
+}
+```
+
+If you copy or adapt its code, keep the MIT copyright notice that comes with it ([LICENSE](LICENSE)).
+
 ## Licences and fair use
 
 - This skill is MIT licensed (see `LICENSE`).

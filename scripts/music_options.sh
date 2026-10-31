@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 # One file with 14s excerpts of each candidate track (A, B, C...) so the person can choose by ear.
 # usage: scripts/music_options.sh out.mp3 track_a.mp3 track_b.mp3 [...]   (excerpt start: START=20)
 set -euo pipefail

@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Generate an instrumental track with ElevenLabs Music from config/music.json.
 usage: uv run --with requests scripts/music.py <name> [--seed N]     -> audio/music/<name>.mp3
 config/music.json either {"model": "...", "prompt": "...", "length_ms": 72000}   (prompt mode, forced instrumental)

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 # Loudness-normalize a render, embed a cover image, and write QA artefacts (1 fps contact sheet, loudness, transcript).
 # usage: scripts/finalize.sh raw.mp4 final.mp4 [cover.jpg]
 set -euo pipefail

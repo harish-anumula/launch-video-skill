@@ -1,3 +1,4 @@
+# launch-video skill by Harish Reddy Anumula · MIT · https://github.com/harish-anumula/launch-video-skill
 """Labelled contact sheet from stills.  usage: uv run --with pillow scripts/sheet.py out.jpg img1.jpg img2.jpg ..."""
 import sys
 from PIL import Image, ImageDraw
